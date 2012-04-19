@@ -9,6 +9,8 @@
 #import <Foundation/Foundation.h>
 #import "XMLParser.h"
 
+#define kMaxPages 10
+
 @protocol UpdateDelegate <NSObject>
 
 - (void)updateWeatherDidFail;

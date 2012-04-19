@@ -157,6 +157,9 @@ static SettingsHelper *sharedHelper;
 
 - (void)addItemToPreferences:(NSDictionary*)dict
 {
+	if ([self.preferences count] >= kMaxPages) {
+		return;
+	}
 	// checks for double entries
 	for (NSDictionary* pref in self.preferences) {
 		if ([[pref objectForKey:@"id"] intValue] == [[dict objectForKey:@"id"] intValue]) {

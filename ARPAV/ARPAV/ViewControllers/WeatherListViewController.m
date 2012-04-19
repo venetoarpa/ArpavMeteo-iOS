@@ -10,7 +10,6 @@
 #import "PreferencesViewController.h"
 #import "WeatherDetailViewController.h"
 
-#define kMaxPages 10
 
 @interface WeatherListViewController ()
 
@@ -58,7 +57,7 @@
 		[self.pageControl setAlpha:0];
 		[self setTitle:@"Meteo"];
 		return;
-	}
+	} 
 	
 	NSMutableArray *controllers = [[NSMutableArray alloc] init];
     for (unsigned i = 0; i < kMaxPages; i++) {
@@ -71,10 +70,13 @@
 	self.scrollView.frame = CGRectMake(0, 0, 320, 350);
 	self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * numberOfPages, self.scrollView.frame.size.height);
 	
+	[self.pageControl setAlpha:1];
     self.pageControl.numberOfPages = numberOfPages;
     self.pageControl.currentPage = 0;
+	
+	self.labelDate.text = [[SettingsHelper sharedHelper].watherData objectForKey:@"date"];
     
-    // pages are created on demand
+	// pages are created on demand
     // load the visible page
     // load the page on either side to avoid flashes when the user starts scrolling
     [self loadScrollViewWithPage:0];
