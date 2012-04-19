@@ -11,6 +11,12 @@
 
 #define kMaxPages 10
 
+#define kDefaultsURL	@"http://www.arpa.veneto.it/apparpav/comuni_app.xml"
+#define kWeatherURL		@"http://www.arpa.veneto.it/apparpav/bollettino_app.xml"
+
+#define kBannerURL		@"http://www.arpa.veneto.it/apparpav/images/banner_app.png"
+#define kBanner2xURL	@"http://www.arpa.veneto.it/apparpav/images/banner_app@2x.png"
+
 @protocol UpdateDelegate <NSObject>
 
 - (void)updateWeatherDidFail;
@@ -33,7 +39,7 @@
 + (SettingsHelper *)sharedHelper;
 - (void)loadDefaults;
 - (void)savePreferences;
-- (void)updateWeather;
+- (void)updateWeatherOnlyOnline:(BOOL)online;
 - (NSArray*)getProvinces;
 - (NSArray*)getCitiesFromProvince:(int)provId;
 - (void)addItemToPreferences:(NSDictionary*)dict;

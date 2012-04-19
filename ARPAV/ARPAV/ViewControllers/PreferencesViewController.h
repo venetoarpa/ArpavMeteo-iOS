@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ARPAVViewController.h"
 
-@interface PreferencesViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface PreferencesViewController : ARPAVViewController <UITableViewDelegate, UITableViewDataSource>
 {
 	UITableView*			_tableView;
 }

@@ -18,13 +18,11 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 	self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-	[application setStatusBarStyle:UIStatusBarStyleBlackOpaque];  
+	[application setStatusBarStyle:UIStatusBarStyleBlackOpaque];  	
 
-	// TODO: add view with spinner
 	[[SettingsHelper sharedHelper] loadDefaults];
-	[[SettingsHelper sharedHelper] updateWeather];
+	[[SettingsHelper sharedHelper] updateWeatherOnlyOnline:NO];
 	
-
 	WeatherListViewController* viewController = [[WeatherListViewController alloc] initWithNibName:@"WeatherListView" bundle:nil];
 	self.navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
 	[self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
@@ -47,7 +45,8 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
-	// Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
+	[[SettingsHelper sharedHelper] loadDefaults];
+	[[SettingsHelper sharedHelper] updateWeatherOnlyOnline:YES];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application

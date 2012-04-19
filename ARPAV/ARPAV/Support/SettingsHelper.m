@@ -8,13 +8,10 @@
 
 #import "SettingsHelper.h"
 
-#define kDefaultsURL	@"http://www.arpa.veneto.it/apparpav/comuni_app.xml"
-#define kWeatherURL		@"http://www.arpa.veneto.it/apparpav/bollettino_app.xml"
 
 @interface SettingsHelper()
 
 - (NSString *)applicationDocumentsDirectory;
-- (void)updateWeather;
 - (void)updateDefaults;
 
 @end
@@ -64,12 +61,22 @@ static SettingsHelper *sharedHelper;
 	// Install default data
 	if (![[NSFileManager defaultManager] fileExistsAtPath:docPath]) {
 		[[NSFileManager defaultManager] copyItemAtPath:plistPath toPath:docPath error:nil];
-		[self updateDefaults];	// Update Defaults anyway
 	}
 	
-	self.defaults = [[NSDictionary alloc] initWithContentsOfFile:docPath];	
+	self.defaults = [[NSDictionary alloc] initWithContentsOfFile:docPath];
+	
+	NSUserDefaults*	defaults = [NSUserDefaults standardUserDefaults];
+	BOOL timePassed = NO;
+	
+	NSTimeInterval last = [defaults floatForKey:@"lastUpdate"];
+	timePassed = (([[NSDate date] timeIntervalSince1970] - last) > 86400);  // 1 day
+	
+	if(timePassed)
+	{
+		[self updateDefaults];	// Update Defaults in a separate thread
+		[defaults setFloat:[[NSDate date] timeIntervalSince1970] forKey:@"lastUpdate"];
+	}
 
-	// TODO: add logic to download the new defaults, remember to reload the dictionary
 }
 
 - (void)setUpdateDelegate:(id<UpdateDelegate>)delegate
@@ -86,18 +93,19 @@ static SettingsHelper *sharedHelper;
 	[self.preferences writeToFile:prefsPath atomically:YES];
 }
 
-- (void)updateWeather
+- (void)updateWeatherOnlyOnline:(BOOL)online
 {
 	// First load the previous cached weather info, if available
 	[[XMLParser sharedParser] setDelegate:self];
 	
-	NSString *filePath = [[self applicationDocumentsDirectory] stringByAppendingPathComponent:@"bollettino_app.xml"];
-	if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
-		[[XMLParser sharedParser] parseFileAtPath:filePath];
+	if (!online) {	
+		NSString *filePath = [[self applicationDocumentsDirectory] stringByAppendingPathComponent:@"bollettino_app.xml"];
+		if ([[NSFileManager defaultManager] fileExistsAtPath:filePath]) {
+			[[XMLParser sharedParser] parseFileAtPath:filePath];
+		}
 	}
 
 	[self performSelectorInBackground:@selector(updateWeatherThread) withObject:nil];
-
 }
 
 - (void)updateWeatherThread
@@ -130,6 +138,11 @@ static SettingsHelper *sharedHelper;
 }
 
 - (void)updateDefaults
+{
+	[self performSelectorInBackground:@selector(updateDefaultsThread) withObject:nil];
+}	
+
+- (void)updateDefaultsThread
 {
 	NSString *update = [NSString stringWithContentsOfURL:[NSURL URLWithString:kDefaultsURL] 
 													encoding:NSUTF8StringEncoding 

@@ -10,7 +10,6 @@
 #import "PreferencesViewController.h"
 #import "WeatherDetailViewController.h"
 
-
 @interface WeatherListViewController ()
 
 - (void)presentPreferencesAnimated:(BOOL)animated;
@@ -25,16 +24,24 @@
 @synthesize pageControl = _pageControl;
 @synthesize viewControllers = _viewControllers;
 @synthesize labelDate = _labelDate;
+@synthesize hud = _hud;
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	
 	[self setTitle:@"Meteo"];
+	
+	_notifyNetworkError = NO;
+	
 	if ([[SettingsHelper sharedHelper].preferences count] == 0) {
 		[self presentPreferencesAnimated:NO];
 	}
 	
+	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
+																						   target:self 
+																						   action:@selector(refreshWeather)];
+
 	self.scrollView.pagingEnabled = YES;
 	self.scrollView.showsHorizontalScrollIndicator = NO;
 	self.scrollView.showsVerticalScrollIndicator = NO;
@@ -42,6 +49,10 @@
     self.scrollView.delegate = self;
     self.scrollView.alwaysBounceHorizontal = NO;
 	self.scrollView.bounces = NO;
+	
+	self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
+	[self.hud setMode:MBProgressHUDModeIndeterminate];
+	[self.hud setLabelText:@"Aggiornamento..."];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -67,7 +78,7 @@
     controllers = nil;
 	
 	[self.scrollView setAlpha:1];
-	self.scrollView.frame = CGRectMake(0, 0, 320, 350);
+	self.scrollView.frame = CGRectMake(0, 35, 320, 315);
 	self.scrollView.contentSize = CGSizeMake(self.scrollView.frame.size.width * numberOfPages, self.scrollView.frame.size.height);
 	
 	[self.pageControl setAlpha:1];
@@ -85,13 +96,39 @@
 	[self updatePageTitle];
 }
 
+- (void)refreshWeather
+{
+	[self.navigationController.view addSubview:self.hud];
+	[self.hud setDelegate:self];
+	[self.hud show:YES];
+	_notifyNetworkError = YES;
+	[[SettingsHelper sharedHelper] updateWeatherOnlyOnline:YES];
+}
+
+- (void)hudWasHidden:(MBProgressHUD *)hud
+{
+	[hud removeFromSuperview];
+}
+
 - (void)updateWeatherDidFail
 {
-	NSLog(@"failed update");
+	[self.hud hide:YES];
+	if (_notifyNetworkError) {
+		UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Errore"
+														message:@"Impossibile aggiornare i dati, verificare la connessione e riprovare."
+													   delegate:nil
+											  cancelButtonTitle:@"Ok"
+											  otherButtonTitles:nil];
+		[alert show];
+	}
+	
+	_notifyNetworkError = NO;
 }
 
 - (void)updateWeatherSuccess
 {
+	[self.hud hide:YES];
+	_notifyNetworkError = NO;
 	for (UIViewController* controller in self.viewControllers) {
 		if ([controller isKindOfClass:[WeatherDetailViewController class]]) {
 			[(WeatherDetailViewController*)controller refreshData];
@@ -210,6 +247,12 @@
 - (void)viewDidUnload
 {
     [super viewDidUnload];
+}
+
+- (void)viewWillDisappear:(BOOL)animated
+{
+	[super viewWillDisappear:animated];
+	[[SettingsHelper sharedHelper] setUpdateDelegate:nil];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

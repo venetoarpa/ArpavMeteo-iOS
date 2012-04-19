@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "ARPAVViewController.h"
 
-@interface CityViewController : UIViewController<UITableViewDelegate, UITableViewDataSource>
+@interface CityViewController : ARPAVViewController<UITableViewDelegate, UITableViewDataSource>
 {
 	UITableView*			_tableView;
 	int						_province;
