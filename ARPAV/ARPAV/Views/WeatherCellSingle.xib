@@ -80,13 +80,13 @@
 								<int key="IBUIBaselineAdjustment">0</int>
 								<float key="IBUIMinimumFontSize">10</float>
 								<int key="IBUINumberOfLines">2</int>
-								<object class="IBUIFontDescription" key="IBUIFontDescription" id="715576674">
+								<object class="IBUIFontDescription" key="IBUIFontDescription">
 									<int key="type">1</int>
-									<double key="pointSize">14</double>
+									<double key="pointSize">13</double>
 								</object>
-								<object class="NSFont" key="IBUIFont" id="1037216115">
+								<object class="NSFont" key="IBUIFont">
 									<string key="NSName">Helvetica</string>
-									<double key="NSSize">14</double>
+									<double key="NSSize">13</double>
 									<int key="NSfFlags">16</int>
 								</object>
 							</object>
@@ -108,10 +108,17 @@
 								<reference key="IBUIHighlightedColor" ref="121672124"/>
 								<int key="IBUIBaselineAdjustment">0</int>
 								<float key="IBUIMinimumFontSize">9</float>
-								<int key="IBUINumberOfLines">2</int>
+								<int key="IBUINumberOfLines">3</int>
 								<int key="IBUITextAlignment">1</int>
-								<reference key="IBUIFontDescription" ref="715576674"/>
-								<reference key="IBUIFont" ref="1037216115"/>
+								<object class="IBUIFontDescription" key="IBUIFontDescription">
+									<int key="type">1</int>
+									<double key="pointSize">12</double>
+								</object>
+								<object class="NSFont" key="IBUIFont">
+									<string key="NSName">Helvetica</string>
+									<double key="NSSize">12</double>
+									<int key="NSfFlags">16</int>
+								</object>
 							</object>
 							<object class="IBUIImageView" id="94796956">
 								<reference key="NSNextResponder" ref="442343624"/>
@@ -119,7 +126,6 @@
 								<string key="NSFrame">{{210, 4}, {35, 35}}</string>
 								<reference key="NSSuperview" ref="442343624"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
@@ -255,12 +261,17 @@
 					<string key="superclassName">UITableViewCell</string>
 					<dictionary class="NSMutableDictionary" key="outlets">
 						<string key="image">UIImageView</string>
+						<string key="imageBack">UIImageView</string>
 						<string key="title">UILabel</string>
 						<string key="value">UILabel</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
 						<object class="IBToOneOutletInfo" key="image">
 							<string key="name">image</string>
+							<string key="candidateClassName">UIImageView</string>
+						</object>
+						<object class="IBToOneOutletInfo" key="imageBack">
+							<string key="name">imageBack</string>
 							<string key="candidateClassName">UIImageView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="title">
