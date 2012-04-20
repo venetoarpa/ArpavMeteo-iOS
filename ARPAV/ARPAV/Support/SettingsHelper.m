@@ -20,7 +20,7 @@
 
 @synthesize defaults = _defaults;
 @synthesize preferences = _preferences;
-@synthesize watherData = _watherData;
+@synthesize weatherData = _weatherData;
 
 static SettingsHelper *sharedHelper;
 
@@ -110,24 +110,26 @@ static SettingsHelper *sharedHelper;
 
 - (void)updateWeatherThread
 {
-	NSError* error;
-	NSString *update = [NSString stringWithContentsOfURL:[NSURL URLWithString:kWeatherURL] 
-												encoding:NSUTF8StringEncoding 
-												   error:&error];
-	
-	NSString *filePath = [[self applicationDocumentsDirectory] stringByAppendingPathComponent:@"bollettino_app.xml"];
-	if (error == nil) {
-		[update writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
-		[[XMLParser sharedParser] parseFileAtPath:filePath];
-	} else {
-		[_delegate updateWeatherDidFail];
+	@autoreleasepool {
+		NSError* error;
+		NSString *update = [NSString stringWithContentsOfURL:[NSURL URLWithString:kWeatherURL] 
+													encoding:NSUTF8StringEncoding 
+													   error:&error];
+		
+		NSString *filePath = [[self applicationDocumentsDirectory] stringByAppendingPathComponent:@"bollettino_app.xml"];
+		if (error == nil) {
+			[update writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
+			[[XMLParser sharedParser] parseFileAtPath:filePath];
+		} else {
+			[_delegate updateWeatherDidFail];
+		}
 	}
 }
 
 - (void)parserDidEndWithResult:(NSMutableDictionary*)result
 {
 	@synchronized(self) {
-		self.watherData = [[NSDictionary alloc] initWithDictionary:result];
+		self.weatherData = [[NSDictionary alloc] initWithDictionary:result];
 	}
 	[_delegate updateWeatherSuccess];
 }
@@ -144,12 +146,14 @@ static SettingsHelper *sharedHelper;
 
 - (void)updateDefaultsThread
 {
-	NSString *update = [NSString stringWithContentsOfURL:[NSURL URLWithString:kDefaultsURL] 
+	@autoreleasepool {
+		NSString *update = [NSString stringWithContentsOfURL:[NSURL URLWithString:kDefaultsURL] 
 													encoding:NSUTF8StringEncoding 
 													   error:nil];
-	
-	NSString *filePath = [[self applicationDocumentsDirectory] stringByAppendingPathComponent:@"Defaults.plist"];
-	[update writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
+		
+		NSString *filePath = [[self applicationDocumentsDirectory] stringByAppendingPathComponent:@"Defaults.plist"];
+		[update writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
+	}
 }
 
 - (NSArray*)getProvinces
@@ -192,7 +196,7 @@ static SettingsHelper *sharedHelper;
 
 - (NSArray*)getSlotsForZone:(int)zoneid
 {
-	for (NSDictionary* dict in [self.watherData objectForKey:@"weather"]) {
+	for (NSDictionary* dict in [self.weatherData objectForKey:@"weather"]) {
 		if ([[dict objectForKey:@"zone"] intValue]== zoneid) {
 			return [dict objectForKey:@"slots"];
 		}
@@ -213,6 +217,46 @@ static SettingsHelper *sharedHelper;
 		}
 	}
 	return -1;
+}
+
+- (int)getBullettinPagesCountFor:(NSString*)type
+{
+	for (NSDictionary* dict in [self.weatherData objectForKey:@"bulletin"]) {
+		if ([[dict objectForKey:@"type"] isEqualToString:type]) {
+			return [[dict objectForKey:@"slots"] count];
+		}
+	}
+	return 0;
+}
+
+- (NSString*)getBullettinNameFor:(NSString*)type
+{
+	for (NSDictionary* dict in [self.weatherData objectForKey:@"bulletin"]) {
+		if ([[dict objectForKey:@"type"] isEqualToString:type]) {
+			return [dict objectForKey:@"name"];
+		}
+	}
+	return @"Bollettino";
+}
+
+- (NSString*)getBullettinTitleFor:(NSString*)type
+{
+	for (NSDictionary* dict in [self.weatherData objectForKey:@"bulletin"]) {
+		if ([[dict objectForKey:@"type"] isEqualToString:type]) {
+			return [dict objectForKey:@"title"];
+		}
+	}
+	return @"Bollettino";
+}
+
+- (NSArray*)getBullettinPagesFor:(NSString*)type
+{
+	for (NSDictionary* dict in [self.weatherData objectForKey:@"bulletin"]) {
+		if ([[dict objectForKey:@"type"] isEqualToString:type]) {
+			return [dict objectForKey:@"slots"];
+		}
+	}
+	return nil;
 }
 
 @end

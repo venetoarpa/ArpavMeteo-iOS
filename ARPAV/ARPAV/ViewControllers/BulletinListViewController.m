@@ -1,51 +1,45 @@
 //
-//  WeatherListViewController.m
+//  BulletinListViewController.m
 //  ARPAV
 //
-//  Created by Andrea Mazzini on 19/04/12.
+//  Created by Andrea Mazzini on 20/04/12.
 //  Copyright (c) 2012 CenTec. All rights reserved.
 //
 
-#import "WeatherListViewController.h"
-#import "PreferencesViewController.h"
-#import "WeatherDetailViewController.h"
 #import "BulletinListViewController.h"
+#import "BulletinDetailViewController.h"
 
-@interface WeatherListViewController ()
 
-- (void)presentPreferencesAnimated:(BOOL)animated;
+@interface BulletinListViewController ()
+
 - (void)loadScrollViewWithPage:(int)page;
 - (void)updatePageTitle;
-- (void)refreshWeather;
 - (void)cachePages;
 
 @end
 
-@implementation WeatherListViewController
+@implementation BulletinListViewController
 
 @synthesize scrollView = _scrollView;
 @synthesize pageControl = _pageControl;
 @synthesize viewControllers = _viewControllers;
-@synthesize labelDate = _labelDate;
 @synthesize hud = _hud;
-@synthesize labelError = _labelError;
+@synthesize currentPages = _currentPages;
+@synthesize labelTitle = _labelTitle;
+
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 	
-	[self setTitle:@"Meteo"];
-
+	//[self setTitle:@"Bollettino Meteo"];
+	self.navigationController.navigationBar.backItem.title = @"Meteo";
 	_notifyNetworkError = NO;
-	
-	if ([[SettingsHelper sharedHelper].preferences count] == 0) {
-		[self presentPreferencesAnimated:NO];
-	}
 	
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
 																						   target:self 
 																						   action:@selector(refreshWeather)];
-
+	
 	self.scrollView.pagingEnabled = YES;
 	self.scrollView.showsHorizontalScrollIndicator = NO;
 	self.scrollView.showsVerticalScrollIndicator = NO;
@@ -54,9 +48,25 @@
     self.scrollView.alwaysBounceHorizontal = NO;
 	self.scrollView.bounces = NO;
 	
+	self.currentPages = [[NSMutableDictionary alloc] init];
+	[self.currentPages setObject:[NSNumber numberWithInt:0] forKey:kTypeVeneto];
+	[self.currentPages setObject:[NSNumber numberWithInt:0] forKey:kTypePianura];
+	[self.currentPages setObject:[NSNumber numberWithInt:0] forKey:kTypeDolomiti];	
+	
+	_type = kTypeVeneto;
+	
 	self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
 	[self.hud setMode:MBProgressHUDModeIndeterminate];
 	[self.hud setLabelText:@"Aggiornamento..."];
+	
+	self.labelTitle = [[UILabel alloc] initWithFrame:CGRectMake(0, 0, 220, 30)];
+	[self.labelTitle setFont:[UIFont boldSystemFontOfSize:12.0]];
+	[self.labelTitle setBackgroundColor:[UIColor clearColor]];
+	[self.labelTitle setTextColor:[UIColor whiteColor]];
+	[self.labelTitle setTextAlignment:UITextAlignmentCenter];
+	[self.labelTitle setNumberOfLines:2];
+	[[self navigationItem] setTitleView:self.labelTitle];
+//	[self.navigationController.navigationBar.topItem setTitleView:self.labelTitle];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -64,36 +74,41 @@
 	[super viewWillAppear:animated];
 	
 	[[SettingsHelper sharedHelper] setUpdateDelegate:self];
-	self.viewControllers = nil;
+	
 	[self cachePages];
 }
 
 - (void)cachePages
 {
-	int numberOfPages =  [[SettingsHelper sharedHelper].preferences count];
+	int numberOfPages =  [[SettingsHelper sharedHelper] getBullettinPagesCountFor:_type];
 	[self.scrollView setAlpha:1];
-	[self.pageControl setAlpha:1];
-	if (numberOfPages == 0 || [SettingsHelper sharedHelper].weatherData == nil) {
+	[self.pageControl setAlpha:1];	
+	if (numberOfPages == 0) {
 		[self.scrollView setAlpha:0];
 		[self.pageControl setAlpha:0];
-		[self setTitle:@"Meteo"];
-		[self.labelError setText:@"Aggiungi i tuoi comuni preferiti cliccando sul tasto Modifica"];
-		
-		if ([SettingsHelper sharedHelper].weatherData == nil) {
-			_isOffline = YES;
-			[self.labelError setText:@"Impossibile aggiornare i dati, verificare la connessione e riprovare."];
-			[self refreshWeather];
-		}
+		[self setTitle:@"Bollettino Meteo"];
+		_isOffline = YES;
 		return;
 	} 
-
+	
 	if (self.viewControllers == nil) {
-		NSMutableArray *controllers = [[NSMutableArray alloc] init];
+		self.viewControllers = [[NSMutableDictionary alloc] init];
+		
+		// uuuuuugly code, but I'm short on time :(
+		[self.viewControllers setObject:[[NSMutableArray alloc] init] forKey:kTypeVeneto];		
 		for (unsigned i = 0; i < kMaxPages; i++) {
-			[controllers addObject:[NSNull null]];
+			[[self.viewControllers objectForKey:kTypeVeneto] addObject:[NSNull null]];
 		}
-		self.viewControllers = controllers;
-		controllers = nil;		
+
+		[self.viewControllers setObject:[[NSMutableArray alloc] init] forKey:kTypePianura];		
+		for (unsigned i = 0; i < kMaxPages; i++) {
+			[[self.viewControllers objectForKey:kTypePianura] addObject:[NSNull null]];
+		}
+
+		[self.viewControllers setObject:[[NSMutableArray alloc] init] forKey:kTypeDolomiti];		
+		for (unsigned i = 0; i < kMaxPages; i++) {
+			[[self.viewControllers objectForKey:kTypeDolomiti] addObject:[NSNull null]];
+		}
 	}
 	
 	[self.scrollView setAlpha:1];
@@ -102,18 +117,31 @@
 	
 	[self.pageControl setAlpha:1];
     self.pageControl.numberOfPages = numberOfPages;
-    self.pageControl.currentPage = 0;
 	
-	self.labelDate.text = [[SettingsHelper sharedHelper].weatherData objectForKey:@"date"];
+	int currentPage = [[self.currentPages objectForKey:_type] intValue];
+	if (currentPage >= numberOfPages) {
+		currentPage = 0;
+	}
+    self.pageControl.currentPage = currentPage;
 	
+    
 	// pages are created on demand
     // load the visible page
     // load the page on either side to avoid flashes when the user starts scrolling
-    [self loadScrollViewWithPage:0];
-    [self loadScrollViewWithPage:1];
+	[self loadScrollViewWithPage:currentPage - 1];
+    [self loadScrollViewWithPage:currentPage];
+    [self loadScrollViewWithPage:currentPage + 1];
+	
+	CGRect frame = self.scrollView.frame;
+    frame.origin.x = frame.size.width * currentPage;
+    frame.origin.y = 0;
+    [self.scrollView scrollRectToVisible:frame animated:YES];
+    
+	// Set the boolean used when scrolls originate from the UIPageControl. See scrollViewDidScroll: above.
+    _pageControlUsed = YES;
+
 	
 	[self updatePageTitle];
-
 }
 
 - (void)refreshWeather
@@ -128,13 +156,6 @@
 - (void)hudWasHidden:(MBProgressHUD *)hud
 {
 	[hud removeFromSuperview];
-}
-
-- (IBAction)buttonBulletin:(id)sender
-{
-	BulletinListViewController* viewController = [[BulletinListViewController alloc] initWithNibName:@"BulletinListView" bundle:nil];
-	[self setTitle:@"Meteo"];
-	[self.navigationController pushViewController:viewController animated:YES];
 }
 
 - (void)updateWeatherDidFail
@@ -154,53 +175,33 @@
 
 - (void)updateWeatherSuccess
 {
-
-	if (_isOffline) {
-		_isOffline = NO;
-		[self cachePages];
-	}
 	[self.hud hide:YES];
 	_notifyNetworkError = NO;
+	
+	if (_isOffline) {
+		_isOffline = NO;
+		[self performSelectorOnMainThread:@selector(cachePages) withObject:self waitUntilDone:YES];
+	}
 	for (UIViewController* controller in self.viewControllers) {
-		if ([controller isKindOfClass:[WeatherDetailViewController class]]) {
-			[(WeatherDetailViewController*)controller refreshData];
+		if ([controller isKindOfClass:[BulletinDetailViewController class]]) {
+			[(BulletinDetailViewController*)controller refreshData];
 		}
     }
-	self.labelDate.text = [[SettingsHelper sharedHelper].weatherData objectForKey:@"date"];
-}
-
-- (IBAction)openPreferences:(id)sender
-{
-	[self presentPreferencesAnimated:YES];
-}
-
-- (void)presentPreferencesAnimated:(BOOL)animated
-{
-	PreferencesViewController* viewController = [[PreferencesViewController alloc] initWithNibName:@"PreferencesView" bundle:nil];
-	UINavigationController* navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
-	[navigationController.navigationBar setBarStyle:UIBarStyleBlack];
-	[self presentModalViewController:navigationController animated:animated];
 }
 
 - (void)loadScrollViewWithPage:(int)page
 {
-	int numberOfPages =  [[SettingsHelper sharedHelper].preferences count];
+	int numberOfPages =  [[SettingsHelper sharedHelper] getBullettinPagesCountFor:_type];
 	if (page < 0)
         return;
     if (page >= numberOfPages)
         return;
 	
-	int city_id = [[[[SettingsHelper sharedHelper].preferences objectAtIndex:page] objectForKey:@"id"] intValue];
-	int zoneid = [[SettingsHelper sharedHelper] getZoneIdForCity:city_id];
-	
-	if (zoneid < 0)
-		return;
-	
     // replace the placeholder if necessary
-    WeatherDetailViewController *controller = [self.viewControllers objectAtIndex:page];
+    BulletinDetailViewController *controller = [[self.viewControllers objectForKey:_type] objectAtIndex:page];
     if ((NSNull *)controller == [NSNull null]) {
-        controller = [[WeatherDetailViewController alloc] initWithZoneId:zoneid];
-        [self.viewControllers replaceObjectAtIndex:page withObject:controller];
+        controller = [[BulletinDetailViewController alloc] initWithPageIndex:page andType:_type];
+        [[self.viewControllers objectForKey:_type] replaceObjectAtIndex:page withObject:controller];
     }
     
     // add the controller's view to the scroll view
@@ -223,6 +224,7 @@
     CGFloat pageWidth = self.scrollView.frame.size.width;
     int page = floor((self.scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
     self.pageControl.currentPage = page;
+	[self.currentPages setObject:[NSNumber numberWithInt:page] forKey:_type];
     
 	[self updatePageTitle];
 	
@@ -230,31 +232,6 @@
     [self loadScrollViewWithPage:page - 1];
     [self loadScrollViewWithPage:page];
     [self loadScrollViewWithPage:page + 1];
-}
-
-- (void)updatePageTitle
-{
-	CGFloat pageWidth = self.scrollView.frame.size.width;
-    int page = floor((self.scrollView.contentOffset.x - pageWidth / 2) / pageWidth) + 1;
-    self.pageControl.currentPage = page;
-
- 	int numberOfPages =  [[SettingsHelper sharedHelper].preferences count];
-	if (page < 0)
-        return;
-    if (page >= numberOfPages)
-        return;   
-	
-	[self setTitle:[[[SettingsHelper sharedHelper].preferences objectAtIndex:page] objectForKey:@"name"]]; 
-}
-
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-{
-    _pageControlUsed = NO;
-}
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
-    _pageControlUsed = NO;
 }
 
 - (IBAction)changePage:(id)sender
@@ -276,15 +253,51 @@
     _pageControlUsed = YES;
 }
 
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
-}
-
 - (void)viewWillDisappear:(BOOL)animated
 {
 	[super viewWillDisappear:animated];
 	[[SettingsHelper sharedHelper] setUpdateDelegate:nil];
+}
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    _pageControlUsed = NO;
+}
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    _pageControlUsed = NO;
+}
+
+- (IBAction)segmentChanged:(id)sender
+{
+	UISegmentedControl* segment = (UISegmentedControl*)sender;
+	switch ([segment selectedSegmentIndex]) {
+		case 0:
+			_type = kTypeVeneto;
+			break;
+		case 1:
+			_type = kTypeDolomiti;
+			break;
+		case 2:
+			_type = kTypePianura;
+			break;			
+		default:
+			break;
+	}
+	[self cachePages];
+}
+
+- (void)updatePageTitle
+{
+	[self.labelTitle setText:[NSString stringWithFormat:@"%@\n%@", [[SettingsHelper sharedHelper] getBullettinNameFor:_type],
+							  [[SettingsHelper sharedHelper] getBullettinTitleFor:_type]]];
+//	[self setTitle:[[SettingsHelper sharedHelper] getBullettinNameFor:_type]];
+}
+
+- (void)viewDidUnload
+{
+    [super viewDidUnload];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

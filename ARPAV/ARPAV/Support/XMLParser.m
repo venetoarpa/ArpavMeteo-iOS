@@ -103,9 +103,33 @@ static XMLParser *sharedParser;
 		[self.data setObject:tempArray forKey:@"bulletin"];
 	}
 	
-	// TODO: parse bulletin
-	#warning TODO
+	if ([elementName isEqualToString:@"bollettino"]) {
+		NSMutableDictionary* tempDict = [[NSMutableDictionary alloc] init];
+		[tempDict setObject:[attributeDict objectForKey:@"bollettinoid"] forKey:@"type"];
+		[tempDict setObject:[attributeDict objectForKey:@"name"] forKey:@"name"];
+		[tempDict setObject:[attributeDict objectForKey:@"title"] forKey:@"title"];
+		NSMutableArray* tempArray = [[NSMutableArray alloc] init];	
+		[tempDict setObject:tempArray forKey:@"slots"];
+		[[self.data objectForKey:@"bulletin"] addObject:tempDict];
+	}
 	
+	if ([elementName isEqualToString:@"slot"] && _currentRoot == kBulletin) {
+		NSMutableDictionary* tempDict = [[NSMutableDictionary alloc] init];
+		[[[[self.data objectForKey:@"bulletin"] lastObject] objectForKey:@"slots"] addObject:tempDict];
+	}
+	
+	if ([elementName isEqualToString:@"img"] && _currentRoot == kBulletin) {
+		NSMutableDictionary* tempDict = [[[[self.data objectForKey:@"bulletin"] lastObject] objectForKey:@"slots"] lastObject];
+		if ([tempDict objectForKey:@"img1"] == nil) {
+			[tempDict setObject:[attributeDict objectForKey:@"src"] forKey:@"img1"];
+			[tempDict setObject:[attributeDict objectForKey:@"caption"] forKey:@"imgCaption1"];	
+		} else {
+			[tempDict setObject:[attributeDict objectForKey:@"src"] forKey:@"img2"];
+			[tempDict setObject:[attributeDict objectForKey:@"caption"] forKey:@"imgCaption2"];	
+		}
+	}
+	
+
 }
 
 - (void)parser:(NSXMLParser *)parser didEndElement:(NSString *)elementName namespaceURI:(NSString *)namespaceURI qualifiedName:(NSString *)qName
@@ -115,7 +139,11 @@ static XMLParser *sharedParser;
 
 - (void)parser:(NSXMLParser *)parser foundCDATA:(NSData *)CDATABlock
 {
-	
+	NSString *cData = [[NSString alloc] initWithData:CDATABlock encoding:NSUTF8StringEncoding];
+	if (_currentRoot == kBulletin) {
+		NSMutableDictionary* tempDict = [[[[self.data objectForKey:@"bulletin"] lastObject] objectForKey:@"slots"] lastObject];
+		[tempDict setObject:cData forKey:@"text"];
+	}
 }
 
 - (void)parser:(NSXMLParser *)parser parseErrorOccurred:(NSError *)parseError

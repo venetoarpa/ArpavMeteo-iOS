@@ -34,6 +34,12 @@
 		65824C41153EC8F20012F543 /* XMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 65824C40153EC8F20012F543 /* XMLParser.m */; };
 		659FA695153F1F23003FEEAD /* CityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 659FA694153F1F23003FEEAD /* CityViewController.m */; };
 		659FA698153F1F60003FEEAD /* CityView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 659FA697153F1F60003FEEAD /* CityView.xib */; };
+		65BD11F1154154EA00243ADB /* BulletinListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65BD11F0154154EA00243ADB /* BulletinListViewController.m */; };
+		65BD11F71541554D00243ADB /* BulletinListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65BD11F61541554D00243ADB /* BulletinListView.xib */; };
+		65BD11FA154167E000243ADB /* BulletinDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65BD11F9154167E000243ADB /* BulletinDetailViewController.m */; };
+		65BD11FC154167FA00243ADB /* BulletinDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65BD11FB154167FA00243ADB /* BulletinDetailView.xib */; };
+		65BD11FF15417BFB00243ADB /* placeholderMap.png in Resources */ = {isa = PBXBuildFile; fileRef = 65BD11FD15417BFB00243ADB /* placeholderMap.png */; };
+		65BD120015417BFB00243ADB /* placeholderMap@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 65BD11FE15417BFB00243ADB /* placeholderMap@2x.png */; };
 		65DC1742153F1D5000C1B370 /* ProvinceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65DC1741153F1D5000C1B370 /* ProvinceViewController.m */; };
 		65E9799D153FFF7500932E19 /* WeatherListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E9799C153FFF7500932E19 /* WeatherListViewController.m */; };
 		65E979A0153FFF8400932E19 /* WeatherListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65E9799F153FFF8400932E19 /* WeatherListView.xib */; };
@@ -304,6 +310,14 @@
 		659FA693153F1F23003FEEAD /* CityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CityViewController.h; path = ViewControllers/CityViewController.h; sourceTree = "<group>"; };
 		659FA694153F1F23003FEEAD /* CityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CityViewController.m; path = ViewControllers/CityViewController.m; sourceTree = "<group>"; };
 		659FA697153F1F60003FEEAD /* CityView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CityView.xib; path = Views/CityView.xib; sourceTree = "<group>"; };
+		65BD11EF154154EA00243ADB /* BulletinListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BulletinListViewController.h; path = ViewControllers/BulletinListViewController.h; sourceTree = "<group>"; };
+		65BD11F0154154EA00243ADB /* BulletinListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BulletinListViewController.m; path = ViewControllers/BulletinListViewController.m; sourceTree = "<group>"; };
+		65BD11F61541554D00243ADB /* BulletinListView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BulletinListView.xib; path = Views/BulletinListView.xib; sourceTree = "<group>"; };
+		65BD11F8154167DF00243ADB /* BulletinDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = BulletinDetailViewController.h; path = ViewControllers/BulletinDetailViewController.h; sourceTree = "<group>"; };
+		65BD11F9154167E000243ADB /* BulletinDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = BulletinDetailViewController.m; path = ViewControllers/BulletinDetailViewController.m; sourceTree = "<group>"; };
+		65BD11FB154167FA00243ADB /* BulletinDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BulletinDetailView.xib; sourceTree = "<group>"; };
+		65BD11FD15417BFB00243ADB /* placeholderMap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholderMap.png; sourceTree = "<group>"; };
+		65BD11FE15417BFB00243ADB /* placeholderMap@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "placeholderMap@2x.png"; sourceTree = "<group>"; };
 		65DC1740153F1D5000C1B370 /* ProvinceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProvinceViewController.h; path = ViewControllers/ProvinceViewController.h; sourceTree = "<group>"; };
 		65DC1741153F1D5000C1B370 /* ProvinceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProvinceViewController.m; path = ViewControllers/ProvinceViewController.m; sourceTree = "<group>"; };
 		65E9799B153FFF7500932E19 /* WeatherListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeatherListViewController.h; path = ViewControllers/WeatherListViewController.h; sourceTree = "<group>"; };
@@ -603,6 +617,8 @@
 				65E979CF154022BD00932E19 /* Symbols */,
 				655DB7B9153F084000FDE93B /* placeholder.png */,
 				655DB7BA153F084000FDE93B /* placeholder@2x.png */,
+				65BD11FD15417BFB00243ADB /* placeholderMap.png */,
+				65BD11FE15417BFB00243ADB /* placeholderMap@2x.png */,
 				655DB7B5153F027500FDE93B /* logoARPAV.png */,
 				655DB7B6153F027500FDE93B /* logoARPAV@2x.png */,
 				65E97B6D1540289100932E19 /* cellBack.png */,
@@ -662,17 +678,10 @@
 		65824C29153EBE770012F543 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				65BD11F51541552000243ADB /* Bulletin */,
+				65BD11F3154154F300243ADB /* Weather */,
+				65BD11F41541550800243ADB /* Preferences */,
 				65E979BF15400CA800932E19 /* Support */,
-				655DB7AE153F004F00FDE93B /* PreferencesViewController.h */,
-				655DB7AF153F004F00FDE93B /* PreferencesViewController.m */,
-				65DC1740153F1D5000C1B370 /* ProvinceViewController.h */,
-				65DC1741153F1D5000C1B370 /* ProvinceViewController.m */,
-				659FA693153F1F23003FEEAD /* CityViewController.h */,
-				659FA694153F1F23003FEEAD /* CityViewController.m */,
-				65E9799B153FFF7500932E19 /* WeatherListViewController.h */,
-				65E9799C153FFF7500932E19 /* WeatherListViewController.m */,
-				65E979A5154004CE00932E19 /* WeatherDetailViewController.h */,
-				65E979A6154004CE00932E19 /* WeatherDetailViewController.m */,
 			);
 			name = ViewControllers;
 			sourceTree = "<group>";
@@ -686,6 +695,8 @@
 				655DB7B2153F006600FDE93B /* PreferencesView.xib */,
 				65E9799F153FFF8400932E19 /* WeatherListView.xib */,
 				65E979A8154004E800932E19 /* WeatherDetailView.xib */,
+				65BD11F61541554D00243ADB /* BulletinListView.xib */,
+				65BD11FB154167FA00243ADB /* BulletinDetailView.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -708,6 +719,41 @@
 				65824C40153EC8F20012F543 /* XMLParser.m */,
 			);
 			name = Support;
+			sourceTree = "<group>";
+		};
+		65BD11F3154154F300243ADB /* Weather */ = {
+			isa = PBXGroup;
+			children = (
+				65E9799B153FFF7500932E19 /* WeatherListViewController.h */,
+				65E9799C153FFF7500932E19 /* WeatherListViewController.m */,
+				65E979A5154004CE00932E19 /* WeatherDetailViewController.h */,
+				65E979A6154004CE00932E19 /* WeatherDetailViewController.m */,
+			);
+			name = Weather;
+			sourceTree = "<group>";
+		};
+		65BD11F41541550800243ADB /* Preferences */ = {
+			isa = PBXGroup;
+			children = (
+				655DB7AE153F004F00FDE93B /* PreferencesViewController.h */,
+				655DB7AF153F004F00FDE93B /* PreferencesViewController.m */,
+				65DC1740153F1D5000C1B370 /* ProvinceViewController.h */,
+				65DC1741153F1D5000C1B370 /* ProvinceViewController.m */,
+				659FA693153F1F23003FEEAD /* CityViewController.h */,
+				659FA694153F1F23003FEEAD /* CityViewController.m */,
+			);
+			name = Preferences;
+			sourceTree = "<group>";
+		};
+		65BD11F51541552000243ADB /* Bulletin */ = {
+			isa = PBXGroup;
+			children = (
+				65BD11EF154154EA00243ADB /* BulletinListViewController.h */,
+				65BD11F0154154EA00243ADB /* BulletinListViewController.m */,
+				65BD11F8154167DF00243ADB /* BulletinDetailViewController.h */,
+				65BD11F9154167E000243ADB /* BulletinDetailViewController.m */,
+			);
+			name = Bulletin;
 			sourceTree = "<group>";
 		};
 		65E979AE15400A4A00932E19 /* Support */ = {
@@ -1227,6 +1273,10 @@
 				65E97B7415402ABF00932E19 /* cellHeaderBack@2x.png in Resources */,
 				65E97B7715403EAB00932E19 /* WeatherHeaderDouble.xib in Resources */,
 				65E97B7815403EAB00932E19 /* WeatherHeaderSingle.xib in Resources */,
+				65BD11F71541554D00243ADB /* BulletinListView.xib in Resources */,
+				65BD11FC154167FA00243ADB /* BulletinDetailView.xib in Resources */,
+				65BD11FF15417BFB00243ADB /* placeholderMap.png in Resources */,
+				65BD120015417BFB00243ADB /* placeholderMap@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1257,6 +1307,8 @@
 				6563D302154063F800283FFC /* UIButton+WebCache.m in Sources */,
 				6563D303154063F800283FFC /* UIImageView+WebCache.m in Sources */,
 				6563D30B1540693200283FFC /* ARPAVViewController.m in Sources */,
+				65BD11F1154154EA00243ADB /* BulletinListViewController.m in Sources */,
+				65BD11FA154167E000243ADB /* BulletinDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1325,6 +1377,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ARPAV/ARPAV-Prefix.pch";
 				INFOPLIST_FILE = "ARPAV/ARPAV-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -1336,6 +1389,7 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ARPAV/ARPAV-Prefix.pch";
 				INFOPLIST_FILE = "ARPAV/ARPAV-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};

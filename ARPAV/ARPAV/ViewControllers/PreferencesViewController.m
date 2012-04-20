@@ -39,20 +39,12 @@
 	[self.navigationItem setLeftBarButtonItem:barButtonAdd];	
 	[self.navigationItem setRightBarButtonItem:barButtonDone];
 	
-	if ([[SettingsHelper sharedHelper].preferences count] == 0) {
-		[barButtonDone setEnabled:NO];
-	}
 }
 
 - (void)viewDidAppear:(BOOL)animated
 {
 	[super viewDidAppear:animated];
 	[self.tableView reloadData];
-	if ([[SettingsHelper sharedHelper].preferences count] == 0) {
-		[self.navigationItem.rightBarButtonItem setEnabled:NO];
-	} else {
-		[self.navigationItem.rightBarButtonItem setEnabled:YES];
-	}
 }
 
 - (void)addPreference

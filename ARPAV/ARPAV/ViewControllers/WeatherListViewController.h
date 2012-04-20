@@ -16,6 +16,7 @@
 	UIScrollView*		_scrollView;
 	UIPageControl*		_pageControl;
 	UILabel*			_labelDate;
+	UILabel*			_labelError;
 	
 	NSMutableArray*		_viewControllers;
 	
@@ -23,14 +24,18 @@
 	BOOL				_notifyNetworkError;
 	
 	BOOL				_pageControlUsed;
+	
+	BOOL				_isOffline;
 }
 
 @property (nonatomic, retain) IBOutlet UIScrollView*		scrollView;
 @property (nonatomic, retain) IBOutlet UIPageControl*		pageControl;
 @property (nonatomic, retain) IBOutlet UILabel*				labelDate;
+@property (nonatomic, retain) IBOutlet UILabel*				labelError;
 @property (nonatomic, retain) NSMutableArray*				viewControllers;
 @property (nonatomic, retain) MBProgressHUD*				hud;
 
 - (IBAction)openPreferences:(id)sender;
+- (IBAction)buttonBulletin:(id)sender;
 
 @end
