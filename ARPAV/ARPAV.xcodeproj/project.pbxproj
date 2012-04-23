@@ -29,6 +29,10 @@
 		6563D302154063F800283FFC /* UIButton+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6563D2F8154063F800283FFC /* UIButton+WebCache.m */; };
 		6563D303154063F800283FFC /* UIImageView+WebCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6563D2FA154063F800283FFC /* UIImageView+WebCache.m */; };
 		6563D30B1540693200283FFC /* ARPAVViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6563D30A1540693200283FFC /* ARPAVViewController.m */; };
+		657178D815457E1600F46A4B /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = 657178D715457E1600F46A4B /* Icon.png */; };
+		657178DB15457E1A00F46A4B /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 657178DA15457E1A00F46A4B /* Icon@2x.png */; };
+		657178DD15457E1D00F46A4B /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 657178DC15457E1D00F46A4B /* Default@2x.png */; };
+		657178DF15457E1F00F46A4B /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 657178DE15457E1F00F46A4B /* Default.png */; };
 		65824C30153EBF190012F543 /* SettingsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 65824C2F153EBF190012F543 /* SettingsHelper.m */; };
 		65824C33153EC1580012F543 /* Defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 65824C32153EC1580012F543 /* Defaults.plist */; };
 		65824C41153EC8F20012F543 /* XMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 65824C40153EC8F20012F543 /* XMLParser.m */; };
@@ -302,6 +306,10 @@
 		6563D2FA154063F800283FFC /* UIImageView+WebCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+WebCache.m"; sourceTree = "<group>"; };
 		6563D3091540693200283FFC /* ARPAVViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ARPAVViewController.h; path = ViewControllers/ARPAVViewController.h; sourceTree = "<group>"; };
 		6563D30A1540693200283FFC /* ARPAVViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ARPAVViewController.m; path = ViewControllers/ARPAVViewController.m; sourceTree = "<group>"; };
+		657178D715457E1600F46A4B /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = ../Icon.png; sourceTree = "<group>"; };
+		657178DA15457E1A00F46A4B /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "../Icon@2x.png"; sourceTree = "<group>"; };
+		657178DC15457E1D00F46A4B /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Default@2x.png"; path = "../Default@2x.png"; sourceTree = "<group>"; };
+		657178DE15457E1F00F46A4B /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Default.png; path = ../Default.png; sourceTree = "<group>"; };
 		65824C2E153EBF190012F543 /* SettingsHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SettingsHelper.h; path = Support/SettingsHelper.h; sourceTree = "<group>"; };
 		65824C2F153EBF190012F543 /* SettingsHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SettingsHelper.m; path = Support/SettingsHelper.m; sourceTree = "<group>"; };
 		65824C32153EC1580012F543 /* Defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Defaults.plist; path = Resources/Defaults.plist; sourceTree = "<group>"; };
@@ -675,6 +683,17 @@
 			path = Library/SDWebImage;
 			sourceTree = "<group>";
 		};
+		657178E015457EC700F46A4B /* Meta */ = {
+			isa = PBXGroup;
+			children = (
+				657178DE15457E1F00F46A4B /* Default.png */,
+				657178DC15457E1D00F46A4B /* Default@2x.png */,
+				657178DA15457E1A00F46A4B /* Icon@2x.png */,
+				657178D715457E1600F46A4B /* Icon.png */,
+			);
+			name = Meta;
+			sourceTree = "<group>";
+		};
 		65824C29153EBE770012F543 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -704,6 +723,7 @@
 		65824C2C153EBE870012F543 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				657178E015457EC700F46A4B /* Meta */,
 				655DB7B4153F027500FDE93B /* Images */,
 				65824C32153EC1580012F543 /* Defaults.plist */,
 			);
@@ -1277,6 +1297,10 @@
 				65BD11FC154167FA00243ADB /* BulletinDetailView.xib in Resources */,
 				65BD11FF15417BFB00243ADB /* placeholderMap.png in Resources */,
 				65BD120015417BFB00243ADB /* placeholderMap@2x.png in Resources */,
+				657178D815457E1600F46A4B /* Icon.png in Resources */,
+				657178DB15457E1A00F46A4B /* Icon@2x.png in Resources */,
+				657178DD15457E1D00F46A4B /* Default@2x.png in Resources */,
+				657178DF15457E1F00F46A4B /* Default.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
