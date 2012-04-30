@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		6514E0F1154E898500DDD64A /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = 6514E0F0154E898500DDD64A /* style.css */; };
+		6514E0F5154E948B00DDD64A /* navBar.png in Resources */ = {isa = PBXBuildFile; fileRef = 6514E0F3154E948B00DDD64A /* navBar.png */; };
+		6514E0F6154E948B00DDD64A /* navBar@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 6514E0F4154E948B00DDD64A /* navBar@2x.png */; };
 		65221B7B153D84BC0089C39C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65221B7A153D84BC0089C39C /* UIKit.framework */; };
 		65221B7D153D84BC0089C39C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65221B7C153D84BC0089C39C /* Foundation.framework */; };
 		65221B7F153D84BC0089C39C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65221B7E153D84BC0089C39C /* CoreGraphics.framework */; };
@@ -269,6 +271,8 @@
 
 /* Begin PBXFileReference section */
 		6514E0F0154E898500DDD64A /* style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = style.css; path = Resources/style.css; sourceTree = "<group>"; };
+		6514E0F3154E948B00DDD64A /* navBar.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = navBar.png; sourceTree = "<group>"; };
+		6514E0F4154E948B00DDD64A /* navBar@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "navBar@2x.png"; sourceTree = "<group>"; };
 		65221B76153D84BC0089C39C /* ARPAV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARPAV.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65221B7A153D84BC0089C39C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		65221B7C153D84BC0089C39C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -634,6 +638,8 @@
 				65BD11FE15417BFB00243ADB /* placeholderMap@2x.png */,
 				655DB7B5153F027500FDE93B /* logoARPAV.png */,
 				655DB7B6153F027500FDE93B /* logoARPAV@2x.png */,
+				6514E0F3154E948B00DDD64A /* navBar.png */,
+				6514E0F4154E948B00DDD64A /* navBar@2x.png */,
 				65E97B6D1540289100932E19 /* cellBack.png */,
 				65E97B6E1540289100932E19 /* cellBack@2x.png */,
 				65E97B7115402ABE00932E19 /* cellHeaderBack.png */,
@@ -1309,6 +1315,8 @@
 				657178DF15457E1F00F46A4B /* Default.png in Resources */,
 				6591BB25154AF6BF0010738B /* Entitlements.plist in Resources */,
 				6514E0F1154E898500DDD64A /* style.css in Resources */,
+				6514E0F5154E948B00DDD64A /* navBar.png in Resources */,
+				6514E0F6154E948B00DDD64A /* navBar@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

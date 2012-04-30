@@ -10,6 +10,13 @@
 #import "SettingsHelper.h"
 #import "WeatherListViewController.h"
 
+@implementation UINavigationBar (CustomImage)
+- (void)drawRect:(CGRect)rect {
+    UIImage *image = [UIImage imageNamed: @"navBar.png"];
+    [image drawInRect:CGRectMake(0, 0, self.frame.size.width, self.frame.size.height)];
+}
+@end
+
 @implementation AppDelegate
 
 @synthesize window = _window;
@@ -18,14 +25,18 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
 	self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-	[application setStatusBarStyle:UIStatusBarStyleBlackOpaque];  	
+//	[application setStatusBarStyle:UIStatusBarStyleBlackOpaque];  	
 
 	[[SettingsHelper sharedHelper] loadDefaults];
 	[[SettingsHelper sharedHelper] updateWeatherOnlyOnline:NO];
-	
+
+	if ([[UINavigationBar class]respondsToSelector:@selector(appearance)]) {
+		[[UINavigationBar appearance] setBackgroundImage:[UIImage imageNamed:@"navBar.png"] forBarMetrics:UIBarMetricsDefault];
+	}
+
 	WeatherListViewController* viewController = [[WeatherListViewController alloc] initWithNibName:@"WeatherListView" bundle:nil];
 	self.navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
-	[self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
+//	[self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];
 	self.window.rootViewController = self.navigationController;
 	[self.window makeKeyAndVisible];
 	

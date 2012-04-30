@@ -178,7 +178,7 @@
 {
 	PreferencesViewController* viewController = [[PreferencesViewController alloc] initWithNibName:@"PreferencesView" bundle:nil];
 	UINavigationController* navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
-	[navigationController.navigationBar setBarStyle:UIBarStyleBlack];
+//	[navigationController.navigationBar setBarStyle:UIBarStyleBlack];
 	[self presentModalViewController:navigationController animated:animated];
 }
 
