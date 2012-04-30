@@ -259,4 +259,9 @@ static SettingsHelper *sharedHelper;
 	return nil;
 }
 
+- (void)movePreferenceAtIndex:(int)source toIndex:(int)destination
+{
+	[self.preferences exchangeObjectAtIndex:source withObjectAtIndex:destination];
+}
+
 @end

@@ -55,5 +55,6 @@
 - (NSString*)getBullettinNameFor:(NSString*)type;
 - (NSString*)getBullettinTitleFor:(NSString*)type;
 - (NSArray*)getBullettinPagesFor:(NSString*)type;
+- (void)movePreferenceAtIndex:(int)source toIndex:(int)destination;
 
 @end

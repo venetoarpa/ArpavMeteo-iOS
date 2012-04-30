@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6514E0F1154E898500DDD64A /* style.css in Resources */ = {isa = PBXBuildFile; fileRef = 6514E0F0154E898500DDD64A /* style.css */; };
 		65221B7B153D84BC0089C39C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65221B7A153D84BC0089C39C /* UIKit.framework */; };
 		65221B7D153D84BC0089C39C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65221B7C153D84BC0089C39C /* Foundation.framework */; };
 		65221B7F153D84BC0089C39C /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 65221B7E153D84BC0089C39C /* CoreGraphics.framework */; };
@@ -36,6 +37,7 @@
 		65824C30153EBF190012F543 /* SettingsHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 65824C2F153EBF190012F543 /* SettingsHelper.m */; };
 		65824C33153EC1580012F543 /* Defaults.plist in Resources */ = {isa = PBXBuildFile; fileRef = 65824C32153EC1580012F543 /* Defaults.plist */; };
 		65824C41153EC8F20012F543 /* XMLParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 65824C40153EC8F20012F543 /* XMLParser.m */; };
+		6591BB25154AF6BF0010738B /* Entitlements.plist in Resources */ = {isa = PBXBuildFile; fileRef = 6591BB24154AF6BF0010738B /* Entitlements.plist */; };
 		659FA695153F1F23003FEEAD /* CityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 659FA694153F1F23003FEEAD /* CityViewController.m */; };
 		659FA698153F1F60003FEEAD /* CityView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 659FA697153F1F60003FEEAD /* CityView.xib */; };
 		65BD11F1154154EA00243ADB /* BulletinListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65BD11F0154154EA00243ADB /* BulletinListViewController.m */; };
@@ -266,6 +268,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6514E0F0154E898500DDD64A /* style.css */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.css; name = style.css; path = Resources/style.css; sourceTree = "<group>"; };
 		65221B76153D84BC0089C39C /* ARPAV.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ARPAV.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		65221B7A153D84BC0089C39C /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		65221B7C153D84BC0089C39C /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -315,6 +318,7 @@
 		65824C32153EC1580012F543 /* Defaults.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Defaults.plist; path = Resources/Defaults.plist; sourceTree = "<group>"; };
 		65824C3F153EC8F20012F543 /* XMLParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = XMLParser.h; path = Support/XMLParser.h; sourceTree = "<group>"; };
 		65824C40153EC8F20012F543 /* XMLParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = XMLParser.m; path = Support/XMLParser.m; sourceTree = "<group>"; };
+		6591BB24154AF6BF0010738B /* Entitlements.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = Entitlements.plist; sourceTree = SOURCE_ROOT; };
 		659FA693153F1F23003FEEAD /* CityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CityViewController.h; path = ViewControllers/CityViewController.h; sourceTree = "<group>"; };
 		659FA694153F1F23003FEEAD /* CityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CityViewController.m; path = ViewControllers/CityViewController.m; sourceTree = "<group>"; };
 		659FA697153F1F60003FEEAD /* CityView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CityView.xib; path = Views/CityView.xib; sourceTree = "<group>"; };
@@ -604,6 +608,7 @@
 				65221B8A153D84BC0089C39C /* AppDelegate.m */,
 				65824C2B153EBE800012F543 /* Views */,
 				65221B81153D84BC0089C39C /* Supporting Files */,
+				6591BB24154AF6BF0010738B /* Entitlements.plist */,
 			);
 			path = ARPAV;
 			sourceTree = "<group>";
@@ -690,6 +695,7 @@
 				657178DC15457E1D00F46A4B /* Default@2x.png */,
 				657178DA15457E1A00F46A4B /* Icon@2x.png */,
 				657178D715457E1600F46A4B /* Icon.png */,
+				6514E0F0154E898500DDD64A /* style.css */,
 			);
 			name = Meta;
 			sourceTree = "<group>";
@@ -1301,6 +1307,8 @@
 				657178DB15457E1A00F46A4B /* Icon@2x.png in Resources */,
 				657178DD15457E1D00F46A4B /* Default@2x.png in Resources */,
 				657178DF15457E1F00F46A4B /* Default.png in Resources */,
+				6591BB25154AF6BF0010738B /* Entitlements.plist in Resources */,
+				6514E0F1154E898500DDD64A /* style.css in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1350,12 +1358,56 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		65203211154AF3DB00CDB363 /* Ad Hoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					armv7,
+				);
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = Entitlements.plist;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = "Ad Hoc";
+		};
+		65203212154AF3DB00CDB363 /* Ad Hoc */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					armv6,
+					armv7,
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ARPAV/ARPAV-Prefix.pch";
+				INFOPLIST_FILE = "ARPAV/ARPAV-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = "Ad Hoc";
+		};
 		65221B8C153D84BC0089C39C /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = (
+					armv6,
+					armv7,
+				);
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1379,8 +1431,12 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				ARCHS = (
+					armv6,
+					armv7,
+				);
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = "";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -1435,6 +1491,7 @@
 			buildConfigurations = (
 				65221B8C153D84BC0089C39C /* Debug */,
 				65221B8D153D84BC0089C39C /* Release */,
+				65203211154AF3DB00CDB363 /* Ad Hoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
@@ -1444,6 +1501,7 @@
 			buildConfigurations = (
 				65221B8F153D84BC0089C39C /* Debug */,
 				65221B90153D84BC0089C39C /* Release */,
+				65203212154AF3DB00CDB363 /* Ad Hoc */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

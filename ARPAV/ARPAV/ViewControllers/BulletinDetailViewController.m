@@ -101,12 +101,15 @@
 	}
 	
 
-	NSMutableString* html = [[NSMutableString alloc] initWithString:@"<html><head></head><body>"];
+	NSMutableString* html = [[NSMutableString alloc] initWithString:@"<html><head><link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" /></head><body>"];
 	[html appendString:[self.data objectForKey:@"text"]];
 	[html appendString:@"</body></html>"];
 	[html replaceOccurrencesOfString:@"\n" withString:@"" options:NSUTF8StringEncoding range:NSMakeRange(0, [html length])];
+
+	NSString *path = [[NSBundle mainBundle] bundlePath];
+	NSURL *baseURL = [NSURL fileURLWithPath:path];
 	[self.webView setDelegate:self];
-	[self.webView loadHTMLString:html baseURL:nil];
+	[self.webView loadHTMLString:html baseURL:baseURL];
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView

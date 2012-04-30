@@ -83,6 +83,28 @@
 	return cell;
 }
 
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
+{
+	if (indexPath.row < [[SettingsHelper sharedHelper].preferences count]) {
+		return YES;
+	}
+	return NO;
+}
+
+- (NSIndexPath *)tableView:(UITableView *)tableView
+targetIndexPathForMoveFromRowAtIndexPath:(NSIndexPath *)sourceIndexPath
+	   toProposedIndexPath:(NSIndexPath *)proposedDestinationIndexPath 
+{
+	if (proposedDestinationIndexPath.row >= [[SettingsHelper sharedHelper].preferences count]) 
+		return [NSIndexPath indexPathForRow:[[SettingsHelper sharedHelper].preferences count] - 1 inSection:0];
+	return proposedDestinationIndexPath;
+}
+
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)sourceIndexPath toIndexPath:(NSIndexPath *)destinationIndexPath
+{
+	[[SettingsHelper sharedHelper] movePreferenceAtIndex:sourceIndexPath.row toIndex:destinationIndexPath.row];
+}
+
 - (BOOL)tableView:(UITableView *)tableView shouldIndentWhileEditingRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	return NO;
