@@ -141,7 +141,7 @@
 		} 
 		
 		if ([[dict objectForKey:@"type"] isEqualToString:@"image"]) {
-			cell.image.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png", [dict objectForKey:@"value"]]];
+			cell.image.image = [UIImage imageNamed:[dict objectForKey:@"value"]];
 			[cell.value setAlpha:0];
 			[cell.image setAlpha:1];
 		} 
@@ -170,8 +170,8 @@
 		} 
 		
 		if ([[dict objectForKey:@"type"] isEqualToString:@"image"]) {
-			cell.image1.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png", [dict objectForKey:@"value1"]]];
-			cell.image2.image = [UIImage imageNamed:[NSString stringWithFormat:@"%@.png", [dict objectForKey:@"value2"]]];
+			cell.image1.image = [UIImage imageNamed:[dict objectForKey:@"value1"]];
+			cell.image2.image = [UIImage imageNamed:[dict objectForKey:@"value2"]];
 			[cell.value1 setAlpha:0];
 			[cell.value2 setAlpha:0];
 			[cell.image1 setAlpha:1];
