@@ -167,6 +167,7 @@
 		}
     }
 	self.labelDate.text = [[SettingsHelper sharedHelper].weatherData objectForKey:@"date"];
+	
 }
 
 - (IBAction)openPreferences:(id)sender
@@ -178,6 +179,7 @@
 {
 	PreferencesViewController* viewController = [[PreferencesViewController alloc] initWithNibName:@"PreferencesView" bundle:nil];
 	UINavigationController* navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
+	navigationController.navigationBar.tintColor = [UIColor colorWithRed:0.25f green:0.60f blue:0.95f alpha:1];
 //	[navigationController.navigationBar setBarStyle:UIBarStyleBlack];
 	[self presentModalViewController:navigationController animated:animated];
 }

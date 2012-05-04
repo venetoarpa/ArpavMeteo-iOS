@@ -47,6 +47,11 @@
 	[self refreshData];
 }
 
+- (void)setType:(NSString*)type
+{
+	_type = type;
+}
+
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
@@ -105,7 +110,7 @@
 	[html appendString:[self.data objectForKey:@"text"]];
 	[html appendString:@"</body></html>"];
 	[html replaceOccurrencesOfString:@"\n" withString:@"" options:NSUTF8StringEncoding range:NSMakeRange(0, [html length])];
-
+//	NSLog(@"%@", html);
 	NSString *path = [[NSBundle mainBundle] bundlePath];
 	NSURL *baseURL = [NSURL fileURLWithPath:path];
 	[self.webView setDelegate:self];

@@ -186,6 +186,8 @@
 
 - (void)refreshData
 {
+	NSArray* data = [[SettingsHelper sharedHelper] getSlotsForZone:_zoneid];
+	self.dataSource = [[NSArray alloc] initWithArray:data];
 	[self.tableView reloadData];
 }
 

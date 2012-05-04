@@ -135,11 +135,10 @@
 	CGRect frame = self.scrollView.frame;
     frame.origin.x = frame.size.width * currentPage;
     frame.origin.y = 0;
-    [self.scrollView scrollRectToVisible:frame animated:YES];
+    [self.scrollView scrollRectToVisible:frame animated:NO];
     
 	// Set the boolean used when scrolls originate from the UIPageControl. See scrollViewDidScroll: above.
     _pageControlUsed = YES;
-
 	
 	[self updatePageTitle];
 }
@@ -182,7 +181,17 @@
 		_isOffline = NO;
 		[self performSelectorOnMainThread:@selector(cachePages) withObject:self waitUntilDone:YES];
 	}
-	for (UIViewController* controller in self.viewControllers) {
+	for (UIViewController* controller in [self.viewControllers objectForKey:kTypeVeneto]) {
+		if ([controller isKindOfClass:[BulletinDetailViewController class]]) {
+			[(BulletinDetailViewController*)controller refreshData];
+		}
+    }
+	for (UIViewController* controller in [self.viewControllers objectForKey:kTypePianura]) {
+		if ([controller isKindOfClass:[BulletinDetailViewController class]]) {
+			[(BulletinDetailViewController*)controller refreshData];
+		}
+    }
+	for (UIViewController* controller in [self.viewControllers objectForKey:kTypeDolomiti]) {
 		if ([controller isKindOfClass:[BulletinDetailViewController class]]) {
 			[(BulletinDetailViewController*)controller refreshData];
 		}
@@ -237,7 +246,7 @@
 - (IBAction)changePage:(id)sender
 {
     int page = self.pageControl.currentPage;
-	
+		
     // load the visible page and the page on either side of it (to avoid flashes when the user starts scrolling)
     [self loadScrollViewWithPage:page - 1];
     [self loadScrollViewWithPage:page];
@@ -272,6 +281,14 @@
 - (IBAction)segmentChanged:(id)sender
 {
 	UISegmentedControl* segment = (UISegmentedControl*)sender;
+	
+	for (UIViewController* controller in [self.viewControllers objectForKey:_type]) {
+		if ([controller isKindOfClass:[BulletinDetailViewController class]]) {
+			UIView* subview = controller.view;
+			[subview removeFromSuperview];
+		}
+    }
+	
 	switch ([segment selectedSegmentIndex]) {
 		case 0:
 			_type = kTypeVeneto;
@@ -292,7 +309,6 @@
 {
 	[self.labelTitle setText:[NSString stringWithFormat:@"%@\n%@", [[SettingsHelper sharedHelper] getBullettinNameFor:_type],
 							  [[SettingsHelper sharedHelper] getBullettinTitleFor:_type]]];
-//	[self setTitle:[[SettingsHelper sharedHelper] getBullettinNameFor:_type]];
 }
 
 - (void)viewDidUnload
