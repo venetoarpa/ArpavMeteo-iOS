@@ -1482,11 +1482,13 @@
 					armv6,
 					armv7,
 				);
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Matteo Setini";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ARPAV/ARPAV-Prefix.pch";
 				INFOPLIST_FILE = "ARPAV/ARPAV-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "ABD46EAA-8D7F-46F0-8EC2-6B8DEEB1C036";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

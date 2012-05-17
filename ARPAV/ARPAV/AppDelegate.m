@@ -36,7 +36,7 @@
 
 	WeatherListViewController* viewController = [[WeatherListViewController alloc] initWithNibName:@"WeatherListView" bundle:nil];
 	self.navigationController = [[UINavigationController alloc] initWithRootViewController:viewController];
-	
+
 	self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:0.25f green:0.60f blue:0.95f alpha:1];
 	
 //	[self.navigationController.navigationBar setBarStyle:UIBarStyleBlack];

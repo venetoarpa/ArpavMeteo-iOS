@@ -21,6 +21,11 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+	[super viewWillAppear:animated];
 	
 	if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
 		if([[UIScreen mainScreen] scale] == 2) {
