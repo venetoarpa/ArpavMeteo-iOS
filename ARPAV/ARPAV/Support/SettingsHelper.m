@@ -54,8 +54,8 @@ static SettingsHelper *sharedHelper;
 		self.preferences = [[NSMutableArray alloc] init];
 	}
 	
+	// Default data paths
 	NSString *plistPath = [[[NSBundle mainBundle] bundlePath] stringByAppendingPathComponent:@"Defaults.plist"];
-
 	NSString *docPath = [[self applicationDocumentsDirectory] stringByAppendingPathComponent:@"Defaults.plist"];
 	
 	// Install default data
@@ -68,11 +68,11 @@ static SettingsHelper *sharedHelper;
 	NSUserDefaults*	defaults = [NSUserDefaults standardUserDefaults];
 	BOOL timePassed = NO;
 	
+	// Update default data every day
 	NSTimeInterval last = [defaults floatForKey:@"lastUpdate"];
 	timePassed = (([[NSDate date] timeIntervalSince1970] - last) > 86400);  // 1 day
 	
-	if(timePassed)
-	{
+	if(timePassed) {
 		[self updateDefaults];	// Update Defaults in a separate thread
 		[defaults setFloat:[[NSDate date] timeIntervalSince1970] forKey:@"lastUpdate"];
 	}
@@ -105,25 +105,24 @@ static SettingsHelper *sharedHelper;
 		}
 	}
 
-	[self performSelectorInBackground:@selector(updateWeatherThread) withObject:nil];
-}
-
-- (void)updateWeatherThread
-{
-	@autoreleasepool {
+	dispatch_queue_t updateQueue = dispatch_queue_create("Weather queue", nil);
+	dispatch_async(updateQueue, ^{
 		NSError* error;
 		NSString *update = [NSString stringWithContentsOfURL:[NSURL URLWithString:kWeatherURL] 
 													encoding:NSUTF8StringEncoding 
 													   error:&error];
 		
-		NSString *filePath = [[self applicationDocumentsDirectory] stringByAppendingPathComponent:@"bollettino_app.xml"];
-		if (error == nil) {
-			[update writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
-			[[XMLParser sharedParser] parseFileAtPath:filePath];
-		} else {
-			[_delegate updateWeatherDidFail];
-		}
-	}
+		dispatch_async(dispatch_get_main_queue(), ^{
+			NSString *filePath = [[self applicationDocumentsDirectory] stringByAppendingPathComponent:@"bollettino_app.xml"];
+			if (error == nil) {
+				[update writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
+				[[XMLParser sharedParser] parseFileAtPath:filePath];
+			} else {
+				[_delegate updateWeatherDidFail];
+			}
+		});
+	});
+	dispatch_release(updateQueue);
 }
 
 - (void)parserDidEndWithResult:(NSMutableDictionary*)result
@@ -141,20 +140,17 @@ static SettingsHelper *sharedHelper;
 
 - (void)updateDefaults
 {
-	[self performSelectorInBackground:@selector(updateDefaultsThread) withObject:nil];
-}	
-
-- (void)updateDefaultsThread
-{
-	@autoreleasepool {
+	dispatch_queue_t updateQueue = dispatch_queue_create("Defaults queue", nil);
+	dispatch_async(updateQueue, ^{
 		NSString *update = [NSString stringWithContentsOfURL:[NSURL URLWithString:kDefaultsURL] 
 													encoding:NSUTF8StringEncoding 
 													   error:nil];
 		
 		NSString *filePath = [[self applicationDocumentsDirectory] stringByAppendingPathComponent:@"Defaults.plist"];
 		[update writeToFile:filePath atomically:YES encoding:NSUTF8StringEncoding error:nil];
-	}
-}
+	});
+	dispatch_release(updateQueue);
+}	
 
 - (NSArray*)getProvinces
 {

@@ -9,14 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface WeatherCellDouble : UITableViewCell
-{
-	UILabel*		_title;
-	UILabel*		_value1;
-	UILabel*		_value2;	
-	UIImageView*	_image1;
-	UIImageView*	_image2;
-	UIImageView*	_imageBack;
-}
 
 @property (nonatomic, retain) IBOutlet UILabel*		title;
 @property (nonatomic, retain) IBOutlet UILabel*		value1;

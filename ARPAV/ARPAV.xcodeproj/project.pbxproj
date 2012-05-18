@@ -23,6 +23,9 @@
 		655DB7BB153F084000FDE93B /* placeholder.png in Resources */ = {isa = PBXBuildFile; fileRef = 655DB7B9153F084000FDE93B /* placeholder.png */; };
 		655DB7BC153F084000FDE93B /* placeholder@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 655DB7BA153F084000FDE93B /* placeholder@2x.png */; };
 		655DB7C1153F170E00FDE93B /* ProvinceView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 655DB7C0153F170E00FDE93B /* ProvinceView.xib */; };
+		65604623156649AD00404AFB /* RadarDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65604622156649AD00404AFB /* RadarDetailViewController.m */; };
+		65604626156649CD00404AFB /* RadarListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65604625156649CD00404AFB /* RadarListView.xib */; };
+		656046281566540B00404AFB /* RadarDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 656046271566540B00404AFB /* RadarDetailView.xib */; };
 		6563D2FB154063F800283FFC /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 6563D2E5154063F800283FFC /* MBProgressHUD.m */; };
 		6563D2FD154063F800283FFC /* SDImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 6563D2EA154063F800283FFC /* SDImageCache.m */; };
 		6563D2FE154063F800283FFC /* SDWebImageDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 6563D2EE154063F800283FFC /* SDWebImageDecoder.m */; };
@@ -48,6 +51,7 @@
 		65BD11FC154167FA00243ADB /* BulletinDetailView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65BD11FB154167FA00243ADB /* BulletinDetailView.xib */; };
 		65BD11FF15417BFB00243ADB /* placeholderMap.png in Resources */ = {isa = PBXBuildFile; fileRef = 65BD11FD15417BFB00243ADB /* placeholderMap.png */; };
 		65BD120015417BFB00243ADB /* placeholderMap@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 65BD11FE15417BFB00243ADB /* placeholderMap@2x.png */; };
+		65C8676A1564F461005860A5 /* RadarListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C867691564F461005860A5 /* RadarListViewController.m */; };
 		65DC1742153F1D5000C1B370 /* ProvinceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65DC1741153F1D5000C1B370 /* ProvinceViewController.m */; };
 		65E9799D153FFF7500932E19 /* WeatherListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E9799C153FFF7500932E19 /* WeatherListViewController.m */; };
 		65E979A0153FFF8400932E19 /* WeatherListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65E9799F153FFF8400932E19 /* WeatherListView.xib */; };
@@ -291,6 +295,10 @@
 		655DB7B9153F084000FDE93B /* placeholder.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholder.png; sourceTree = "<group>"; };
 		655DB7BA153F084000FDE93B /* placeholder@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "placeholder@2x.png"; sourceTree = "<group>"; };
 		655DB7C0153F170E00FDE93B /* ProvinceView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ProvinceView.xib; path = Views/ProvinceView.xib; sourceTree = "<group>"; };
+		65604621156649AD00404AFB /* RadarDetailViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RadarDetailViewController.h; path = ViewControllers/RadarDetailViewController.h; sourceTree = "<group>"; };
+		65604622156649AD00404AFB /* RadarDetailViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RadarDetailViewController.m; path = ViewControllers/RadarDetailViewController.m; sourceTree = "<group>"; };
+		65604625156649CD00404AFB /* RadarListView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RadarListView.xib; path = Views/RadarListView.xib; sourceTree = "<group>"; };
+		656046271566540B00404AFB /* RadarDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RadarDetailView.xib; path = Views/RadarDetailView.xib; sourceTree = "<group>"; };
 		6563D2E4154063F800283FFC /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		6563D2E5154063F800283FFC /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		6563D2E9154063F800283FFC /* SDImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SDImageCache.h; sourceTree = "<group>"; };
@@ -334,6 +342,8 @@
 		65BD11FB154167FA00243ADB /* BulletinDetailView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = BulletinDetailView.xib; sourceTree = "<group>"; };
 		65BD11FD15417BFB00243ADB /* placeholderMap.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = placeholderMap.png; sourceTree = "<group>"; };
 		65BD11FE15417BFB00243ADB /* placeholderMap@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "placeholderMap@2x.png"; sourceTree = "<group>"; };
+		65C867681564F461005860A5 /* RadarListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RadarListViewController.h; path = ViewControllers/RadarListViewController.h; sourceTree = "<group>"; };
+		65C867691564F461005860A5 /* RadarListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RadarListViewController.m; path = ViewControllers/RadarListViewController.m; sourceTree = "<group>"; };
 		65DC1740153F1D5000C1B370 /* ProvinceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProvinceViewController.h; path = ViewControllers/ProvinceViewController.h; sourceTree = "<group>"; };
 		65DC1741153F1D5000C1B370 /* ProvinceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProvinceViewController.m; path = ViewControllers/ProvinceViewController.m; sourceTree = "<group>"; };
 		65E9799B153FFF7500932E19 /* WeatherListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeatherListViewController.h; path = ViewControllers/WeatherListViewController.h; sourceTree = "<group>"; };
@@ -709,6 +719,7 @@
 		65824C29153EBE770012F543 /* ViewControllers */ = {
 			isa = PBXGroup;
 			children = (
+				65C867661564F38D005860A5 /* Radar */,
 				65BD11F51541552000243ADB /* Bulletin */,
 				65BD11F3154154F300243ADB /* Weather */,
 				65BD11F41541550800243ADB /* Preferences */,
@@ -728,6 +739,8 @@
 				65E979A8154004E800932E19 /* WeatherDetailView.xib */,
 				65BD11F61541554D00243ADB /* BulletinListView.xib */,
 				65BD11FB154167FA00243ADB /* BulletinDetailView.xib */,
+				65604625156649CD00404AFB /* RadarListView.xib */,
+				656046271566540B00404AFB /* RadarDetailView.xib */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -786,6 +799,17 @@
 				65BD11F9154167E000243ADB /* BulletinDetailViewController.m */,
 			);
 			name = Bulletin;
+			sourceTree = "<group>";
+		};
+		65C867661564F38D005860A5 /* Radar */ = {
+			isa = PBXGroup;
+			children = (
+				65C867681564F461005860A5 /* RadarListViewController.h */,
+				65C867691564F461005860A5 /* RadarListViewController.m */,
+				65604621156649AD00404AFB /* RadarDetailViewController.h */,
+				65604622156649AD00404AFB /* RadarDetailViewController.m */,
+			);
+			name = Radar;
 			sourceTree = "<group>";
 		};
 		65E979AE15400A4A00932E19 /* Support */ = {
@@ -1317,6 +1341,8 @@
 				6514E0F1154E898500DDD64A /* style.css in Resources */,
 				6514E0F5154E948B00DDD64A /* navBar.png in Resources */,
 				6514E0F6154E948B00DDD64A /* navBar@2x.png in Resources */,
+				65604626156649CD00404AFB /* RadarListView.xib in Resources */,
+				656046281566540B00404AFB /* RadarDetailView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1349,6 +1375,8 @@
 				6563D30B1540693200283FFC /* ARPAVViewController.m in Sources */,
 				65BD11F1154154EA00243ADB /* BulletinListViewController.m in Sources */,
 				65BD11FA154167E000243ADB /* BulletinDetailViewController.m in Sources */,
+				65C8676A1564F461005860A5 /* RadarListViewController.m in Sources */,
+				65604623156649AD00404AFB /* RadarDetailViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1482,6 +1510,48 @@
 					armv6,
 					armv7,
 				);
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "ARPAV/ARPAV-Prefix.pch";
+				INFOPLIST_FILE = "ARPAV/ARPAV-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
+		656046291566A06500404AFB /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					armv6,
+					armv7,
+				);
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CODE_SIGN_ENTITLEMENTS = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Matteo Setini";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "ABD46EAA-8D7F-46F0-8EC2-6B8DEEB1C036";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Distribution;
+		};
+		6560462A1566A06500404AFB /* Distribution */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = (
+					armv6,
+					armv7,
+				);
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Matteo Setini";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ARPAV/ARPAV-Prefix.pch";
@@ -1491,7 +1561,7 @@
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "ABD46EAA-8D7F-46F0-8EC2-6B8DEEB1C036";
 				WRAPPER_EXTENSION = app;
 			};
-			name = Release;
+			name = Distribution;
 		};
 /* End XCBuildConfiguration section */
 
@@ -1501,6 +1571,7 @@
 			buildConfigurations = (
 				65221B8C153D84BC0089C39C /* Debug */,
 				65221B8D153D84BC0089C39C /* Release */,
+				656046291566A06500404AFB /* Distribution */,
 				65203211154AF3DB00CDB363 /* Ad Hoc */,
 			);
 			defaultConfigurationIsVisible = 0;
@@ -1511,6 +1582,7 @@
 			buildConfigurations = (
 				65221B8F153D84BC0089C39C /* Debug */,
 				65221B90153D84BC0089C39C /* Release */,
+				6560462A1566A06500404AFB /* Distribution */,
 				65203212154AF3DB00CDB363 /* Ad Hoc */,
 			);
 			defaultConfigurationIsVisible = 0;

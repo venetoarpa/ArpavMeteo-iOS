@@ -129,6 +129,20 @@ static XMLParser *sharedParser;
 		}
 	}
 	
+	if ([elementName isEqualToString:@"radars"]) {
+		NSMutableArray* tempArray = [[NSMutableArray alloc] init];
+		[self.data setObject:tempArray forKey:@"radars"];
+	}
+
+	if ([elementName isEqualToString:@"radar"]) {
+		if ([attributeDict count] == 0) {
+			return;
+		}
+		NSMutableDictionary* tempDict = [[NSMutableDictionary alloc] init];
+		[tempDict setObject:[attributeDict objectForKey:@"title"] forKey:@"title"];
+		[tempDict setObject:[attributeDict objectForKey:@"img"] forKey:@"img"];
+		[[self.data objectForKey:@"radars"] addObject:tempDict];
+	}
 
 }
 

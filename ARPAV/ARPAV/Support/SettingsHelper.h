@@ -30,9 +30,6 @@
 
 @interface SettingsHelper : NSObject <XMLParserDelegate>
 {
-	NSDictionary*			_defaults;
-	NSMutableArray*			_preferences;
-	NSDictionary*			_weatherData;
 	id<UpdateDelegate>		_delegate;
 }
 

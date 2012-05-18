@@ -32,7 +32,6 @@
 {
     [super viewDidLoad];
 	
-	//[self setTitle:@"Bollettino Meteo"];
 	self.navigationController.navigationBar.backItem.title = @"Meteo";
 	_notifyNetworkError = NO;
 	
@@ -66,7 +65,6 @@
 	[self.labelTitle setTextAlignment:UITextAlignmentCenter];
 	[self.labelTitle setNumberOfLines:2];
 	[[self navigationItem] setTitleView:self.labelTitle];
-//	[self.navigationController.navigationBar.topItem setTitleView:self.labelTitle];
 }
 
 - (void)viewWillAppear:(BOOL)animated
