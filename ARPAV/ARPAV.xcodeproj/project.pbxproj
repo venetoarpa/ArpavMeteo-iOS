@@ -52,6 +52,7 @@
 		65BD11FF15417BFB00243ADB /* placeholderMap.png in Resources */ = {isa = PBXBuildFile; fileRef = 65BD11FD15417BFB00243ADB /* placeholderMap.png */; };
 		65BD120015417BFB00243ADB /* placeholderMap@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 65BD11FE15417BFB00243ADB /* placeholderMap@2x.png */; };
 		65C8676A1564F461005860A5 /* RadarListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65C867691564F461005860A5 /* RadarListViewController.m */; };
+		65D15655156BC6E900264613 /* ARPAVMultiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65D15654156BC6E800264613 /* ARPAVMultiViewController.m */; };
 		65DC1742153F1D5000C1B370 /* ProvinceViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65DC1741153F1D5000C1B370 /* ProvinceViewController.m */; };
 		65E9799D153FFF7500932E19 /* WeatherListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 65E9799C153FFF7500932E19 /* WeatherListViewController.m */; };
 		65E979A0153FFF8400932E19 /* WeatherListView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 65E9799F153FFF8400932E19 /* WeatherListView.xib */; };
@@ -287,6 +288,7 @@
 		65221B88153D84BC0089C39C /* ARPAV-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ARPAV-Prefix.pch"; sourceTree = "<group>"; };
 		65221B89153D84BC0089C39C /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		65221B8A153D84BC0089C39C /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		6552004C156BCCB30050A407 /* ARPAVMultiViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = ARPAVMultiViewController.h; path = ViewControllers/ARPAVMultiViewController.h; sourceTree = "<group>"; };
 		655DB7AE153F004F00FDE93B /* PreferencesViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PreferencesViewController.h; path = ViewControllers/PreferencesViewController.h; sourceTree = "<group>"; };
 		655DB7AF153F004F00FDE93B /* PreferencesViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PreferencesViewController.m; path = ViewControllers/PreferencesViewController.m; sourceTree = "<group>"; };
 		655DB7B2153F006600FDE93B /* PreferencesView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PreferencesView.xib; path = Views/PreferencesView.xib; sourceTree = "<group>"; };
@@ -344,6 +346,7 @@
 		65BD11FE15417BFB00243ADB /* placeholderMap@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "placeholderMap@2x.png"; sourceTree = "<group>"; };
 		65C867681564F461005860A5 /* RadarListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = RadarListViewController.h; path = ViewControllers/RadarListViewController.h; sourceTree = "<group>"; };
 		65C867691564F461005860A5 /* RadarListViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = RadarListViewController.m; path = ViewControllers/RadarListViewController.m; sourceTree = "<group>"; };
+		65D15654156BC6E800264613 /* ARPAVMultiViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ARPAVMultiViewController.m; path = ViewControllers/ARPAVMultiViewController.m; sourceTree = "<group>"; };
 		65DC1740153F1D5000C1B370 /* ProvinceViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProvinceViewController.h; path = ViewControllers/ProvinceViewController.h; sourceTree = "<group>"; };
 		65DC1741153F1D5000C1B370 /* ProvinceViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProvinceViewController.m; path = ViewControllers/ProvinceViewController.m; sourceTree = "<group>"; };
 		65E9799B153FFF7500932E19 /* WeatherListViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = WeatherListViewController.h; path = ViewControllers/WeatherListViewController.h; sourceTree = "<group>"; };
@@ -832,6 +835,8 @@
 				65E979C115400CC000932E19 /* WeatherCellDouble.m */,
 				65E979C315400D2500932E19 /* WeatherCellSingle.h */,
 				65E979C415400D2500932E19 /* WeatherCellSingle.m */,
+				6552004C156BCCB30050A407 /* ARPAVMultiViewController.h */,
+				65D15654156BC6E800264613 /* ARPAVMultiViewController.m */,
 			);
 			name = Support;
 			sourceTree = "<group>";
@@ -1377,6 +1382,7 @@
 				65BD11FA154167E000243ADB /* BulletinDetailViewController.m in Sources */,
 				65C8676A1564F461005860A5 /* RadarListViewController.m in Sources */,
 				65604623156649AD00404AFB /* RadarDetailViewController.m in Sources */,
+				65D15655156BC6E900264613 /* ARPAVMultiViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1407,6 +1413,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
@@ -1427,6 +1434,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ARPAV/ARPAV-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "ARPAV/ARPAV-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1454,6 +1462,7 @@
 					"$(inherited)",
 				);
 				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
@@ -1476,6 +1485,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
@@ -1496,6 +1506,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ARPAV/ARPAV-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "ARPAV/ARPAV-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1513,6 +1524,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ARPAV/ARPAV-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "ARPAV/ARPAV-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -1533,6 +1545,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Matteo Setini";
 				COPY_PHASE_STRIP = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_THUMB_SUPPORT = NO;
 				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES;
@@ -1555,6 +1568,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: Matteo Setini";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "ARPAV/ARPAV-Prefix.pch";
+				GCC_THUMB_SUPPORT = NO;
 				INFOPLIST_FILE = "ARPAV/ARPAV-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 4.0;
 				PRODUCT_NAME = "$(TARGET_NAME)";

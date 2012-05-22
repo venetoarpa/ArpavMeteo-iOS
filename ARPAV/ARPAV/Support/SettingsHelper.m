@@ -7,7 +7,7 @@
 //
 
 #import "SettingsHelper.h"
-
+#import "SDImageCache.h"
 
 @interface SettingsHelper()
 
@@ -86,6 +86,7 @@ static SettingsHelper *sharedHelper;
 
 - (void)savePreferences
 {
+	// Save user preferences to disk
 	if (self.preferences == nil) {
 		return;
 	}
@@ -95,6 +96,8 @@ static SettingsHelper *sharedHelper;
 
 - (void)updateWeatherOnlyOnline:(BOOL)online
 {
+	// Downloads an updated weather dispatch. With (online == NO) first loads up the cached version
+	
 	// First load the previous cached weather info, if available
 	[[XMLParser sharedParser] setDelegate:self];
 	
@@ -105,6 +108,7 @@ static SettingsHelper *sharedHelper;
 		}
 	}
 
+	// New GCD queue that will handle the blocking update operation
 	dispatch_queue_t updateQueue = dispatch_queue_create("Weather queue", nil);
 	dispatch_async(updateQueue, ^{
 		NSError* error;
@@ -130,6 +134,12 @@ static SettingsHelper *sharedHelper;
 	@synchronized(self) {
 		self.weatherData = [[NSDictionary alloc] initWithDictionary:result];
 	}
+	
+	// Clears disk cache. Since the radar images always have the same name, a weak cache policy is required
+	SDImageCache *imageCache = [SDImageCache sharedImageCache];
+	[imageCache clearMemory];
+	[imageCache clearDisk];
+	[imageCache cleanDisk];
 	[_delegate updateWeatherSuccess];
 }
 
@@ -140,6 +150,7 @@ static SettingsHelper *sharedHelper;
 
 - (void)updateDefaults
 {
+	// GCD queue that handles blocking update operations for the App Defaults
 	dispatch_queue_t updateQueue = dispatch_queue_create("Defaults queue", nil);
 	dispatch_async(updateQueue, ^{
 		NSString *update = [NSString stringWithContentsOfURL:[NSURL URLWithString:kDefaultsURL] 
@@ -192,9 +203,9 @@ static SettingsHelper *sharedHelper;
 
 - (NSArray*)getSlotsForZone:(int)zoneid
 {
-	for (NSDictionary* dict in [self.weatherData objectForKey:@"weather"]) {
-		if ([[dict objectForKey:@"zone"] intValue]== zoneid) {
-			return [dict objectForKey:@"slots"];
+	for (NSDictionary* dict in [self.weatherData objectForKey:kXMLWeather]) {
+		if ([[dict objectForKey:kXMLWeatherZone] intValue]== zoneid) {
+			return [dict objectForKey:kXMLWeatherSlots];
 		}
 	}
 	
@@ -217,9 +228,9 @@ static SettingsHelper *sharedHelper;
 
 - (int)getBullettinPagesCountFor:(NSString*)type
 {
-	for (NSDictionary* dict in [self.weatherData objectForKey:@"bulletin"]) {
-		if ([[dict objectForKey:@"type"] isEqualToString:type]) {
-			return [[dict objectForKey:@"slots"] count];
+	for (NSDictionary* dict in [self.weatherData objectForKey:kXMLBulletin]) {
+		if ([[dict objectForKey:kXMLBulletinType] isEqualToString:type]) {
+			return [[dict objectForKey:kXMLBulletinSlots] count];
 		}
 	}
 	return 0;
@@ -227,9 +238,9 @@ static SettingsHelper *sharedHelper;
 
 - (NSString*)getBullettinNameFor:(NSString*)type
 {
-	for (NSDictionary* dict in [self.weatherData objectForKey:@"bulletin"]) {
-		if ([[dict objectForKey:@"type"] isEqualToString:type]) {
-			return [dict objectForKey:@"name"];
+	for (NSDictionary* dict in [self.weatherData objectForKey:kXMLBulletin]) {
+		if ([[dict objectForKey:kXMLBulletinType] isEqualToString:type]) {
+			return [dict objectForKey:kXMLBulletinName];
 		}
 	}
 	return @"Bollettino";
@@ -237,9 +248,9 @@ static SettingsHelper *sharedHelper;
 
 - (NSString*)getBullettinTitleFor:(NSString*)type
 {
-	for (NSDictionary* dict in [self.weatherData objectForKey:@"bulletin"]) {
-		if ([[dict objectForKey:@"type"] isEqualToString:type]) {
-			return [dict objectForKey:@"title"];
+	for (NSDictionary* dict in [self.weatherData objectForKey:kXMLBulletin]) {
+		if ([[dict objectForKey:kXMLBulletinType] isEqualToString:type]) {
+			return [dict objectForKey:kXMLBulletinTitle];
 		}
 	}
 	return @"Bollettino";
@@ -247,9 +258,9 @@ static SettingsHelper *sharedHelper;
 
 - (NSArray*)getBullettinPagesFor:(NSString*)type
 {
-	for (NSDictionary* dict in [self.weatherData objectForKey:@"bulletin"]) {
-		if ([[dict objectForKey:@"type"] isEqualToString:type]) {
-			return [dict objectForKey:@"slots"];
+	for (NSDictionary* dict in [self.weatherData objectForKey:kXMLBulletin]) {
+		if ([[dict objectForKey:kXMLBulletinType] isEqualToString:type]) {
+			return [dict objectForKey:kXMLBulletinSlots];
 		}
 	}
 	return nil;

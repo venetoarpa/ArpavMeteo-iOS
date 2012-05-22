@@ -10,10 +10,7 @@
 #import "ARPAVViewController.h"
 
 @interface PreferencesViewController : ARPAVViewController <UITableViewDelegate, UITableViewDataSource>
-{
-	UITableView*			_tableView;
-}
 
-@property (nonatomic, retain) IBOutlet	UITableView*			tableView;
+@property (nonatomic, assign) IBOutlet	UITableView*			tableView;
 
 @end

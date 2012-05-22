@@ -7,36 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "ARPAVViewController.h"
+#import "ARPAVMultiViewController.h"
 #import "MBProgressHUD.h"
 #import "SettingsHelper.h"
 
-@interface BulletinListViewController : ARPAVViewController <UIScrollViewDelegate, UpdateDelegate, MBProgressHUDDelegate>
+@interface BulletinListViewController : ARPAVMultiViewController
 {
-	UIScrollView*		_scrollView;
-	UIPageControl*		_pageControl;
-	
-	NSMutableDictionary* _viewControllers;
-	
-	MBProgressHUD*		_hud;
-	BOOL				_notifyNetworkError;
-	
-	BOOL				_pageControlUsed;
-	
-	NSMutableDictionary* _currentPages;
-	
-	BOOL				_isOffline;
 	NSString*			_type;
-	
-	UILabel*			_labelTitle;
 }
 
-@property (nonatomic, retain) IBOutlet UIScrollView*		scrollView;
-@property (nonatomic, retain) IBOutlet UIPageControl*		pageControl;
-@property (nonatomic, retain) NSMutableDictionary*			viewControllers;
-@property (nonatomic, retain) NSMutableDictionary*			currentPages;
-@property (nonatomic, retain) MBProgressHUD*				hud;
 @property (nonatomic, retain) UILabel*						labelTitle;
+@property (nonatomic, retain) NSMutableDictionary*			currentPages;
 
 - (IBAction)segmentChanged:(id)sender;
 

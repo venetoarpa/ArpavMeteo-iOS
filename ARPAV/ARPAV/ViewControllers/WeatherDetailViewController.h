@@ -8,14 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
-@interface WeatherDetailViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
+@interface WeatherDetailViewController : UITableViewController
 {
-	UITableView*		_tableView;
 	NSArray*			_dataSource;
 	int					_zoneid;
 }
 
-@property (nonatomic, retain) IBOutlet	UITableView*		tableView;
 @property (nonatomic, retain) NSArray*						dataSource;
 
 - (id)initWithZoneId:(int)zoneid;

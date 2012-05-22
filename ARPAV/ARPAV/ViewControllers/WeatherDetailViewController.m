@@ -74,7 +74,7 @@
 - (float)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath
 {
 	NSDictionary* dict = [[self.dataSource objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
-	if ([[dict objectForKey:@"type"] isEqualToString:@"title"]) {
+	if ([[dict objectForKey:kXMLWeatherRowType] isEqualToString:kXMLWeatherRowTitle]) {
 		return 30;
 	}
 	return 44;
@@ -89,8 +89,9 @@
 	
 	NSDictionary* dict = [[self.dataSource objectAtIndex:indexPath.section] objectAtIndex:indexPath.row];
 	
-	if ([[dict objectForKey:@"type"] isEqualToString:@"title"]) {
-		if ([[dict objectForKey:@"columns"] intValue] == 1) {
+	// Building the header
+	if ([[dict objectForKey:kXMLWeatherRowType] isEqualToString:@"title"]) {
+		if ([[dict objectForKey:kXMLWeatherRowColumns] intValue] == 1) {
 			WeatherCellSingle* cell;
 			cell = [self.tableView dequeueReusableCellWithIdentifier:singleHeaderIdentifier];
 			
@@ -100,12 +101,12 @@
 			}
 			
 			cell.title.text = @"";
-			cell.value.text = [dict objectForKey:@"value"];
+			cell.value.text = [dict objectForKey:kXMLWeatherRowValue1];
 			
 			return cell;
 		}
 		
-		if ([[dict objectForKey:@"columns"] intValue] == 2) {
+		if ([[dict objectForKey:kXMLWeatherRowColumns] intValue] == 2) {
 			WeatherCellDouble* cell;
 			cell = [self.tableView dequeueReusableCellWithIdentifier:doubleHeaderIdentifier];
 			
@@ -115,15 +116,15 @@
 			}
 			
 			cell.title.text = @"";
-			cell.value1.text = [dict objectForKey:@"value1"];
-			cell.value2.text = [dict objectForKey:@"value2"];
+			cell.value1.text = [dict objectForKey:kXMLWeatherRowValue1];
+			cell.value2.text = [dict objectForKey:kXMLWeatherRowValue2];
 			
 			return cell;
 		}
 	}
 	
-	
-	if ([[dict objectForKey:@"columns"] intValue] == 1) {
+	// Building the content
+	if ([[dict objectForKey:kXMLWeatherRowColumns] intValue] == 1) {
 		WeatherCellSingle* cell;
 		cell = [self.tableView dequeueReusableCellWithIdentifier:singleIdentifier];
 		
@@ -132,16 +133,16 @@
 			cell = (WeatherCellSingle *)[nib objectAtIndex:0];
 		}
 		
-		cell.title.text = [dict objectForKey:@"title"];
+		cell.title.text = [dict objectForKey:kXMLWeatherRowTitle];
 		
-		if ([[dict objectForKey:@"type"] isEqualToString:@"text"]) {
-			cell.value.text = [dict objectForKey:@"value"];
+		if ([[dict objectForKey:kXMLWeatherRowType] isEqualToString:@"text"]) {
+			cell.value.text = [dict objectForKey:kXMLWeatherRowValue1];
 			[cell.value setAlpha:1];
 			[cell.image setAlpha:0];
 		} 
 		
-		if ([[dict objectForKey:@"type"] isEqualToString:@"image"]) {
-			cell.image.image = [UIImage imageNamed:[dict objectForKey:@"value"]];
+		if ([[dict objectForKey:kXMLWeatherRowType] isEqualToString:@"image"]) {
+			cell.image.image = [UIImage imageNamed:[dict objectForKey:kXMLWeatherRowValue1]];
 			[cell.value setAlpha:0];
 			[cell.image setAlpha:1];
 		} 
@@ -149,7 +150,7 @@
 		return cell;
 	} 
 	
-	if ([[dict objectForKey:@"columns"] intValue] == 2) {
+	if ([[dict objectForKey:kXMLWeatherRowColumns] intValue] == 2) {
 		WeatherCellDouble* cell;
 		cell = [self.tableView dequeueReusableCellWithIdentifier:doubleIdentifier];
 		
@@ -158,20 +159,20 @@
 			cell = (WeatherCellDouble *)[nib objectAtIndex:0];
 		}
 		
-		cell.title.text = [dict objectForKey:@"title"];
+		cell.title.text = [dict objectForKey:kXMLWeatherRowTitle];
 		
-		if ([[dict objectForKey:@"type"] isEqualToString:@"text"]) {
-			cell.value1.text = [dict objectForKey:@"value1"];
-			cell.value2.text = [dict objectForKey:@"value2"];
+		if ([[dict objectForKey:kXMLWeatherRowType] isEqualToString:@"text"]) {
+			cell.value1.text = [dict objectForKey:kXMLWeatherRowValue1];
+			cell.value2.text = [dict objectForKey:kXMLWeatherRowValue2];
 			[cell.value1 setAlpha:1];
 			[cell.value2 setAlpha:1];
 			[cell.image1 setAlpha:0];
 			[cell.image2 setAlpha:0];
 		} 
 		
-		if ([[dict objectForKey:@"type"] isEqualToString:@"image"]) {
-			cell.image1.image = [UIImage imageNamed:[dict objectForKey:@"value1"]];
-			cell.image2.image = [UIImage imageNamed:[dict objectForKey:@"value2"]];
+		if ([[dict objectForKey:kXMLWeatherRowType] isEqualToString:@"image"]) {
+			cell.image1.image = [UIImage imageNamed:[dict objectForKey:kXMLWeatherRowValue1]];
+			cell.image2.image = [UIImage imageNamed:[dict objectForKey:kXMLWeatherRowValue2]];
 			[cell.value1 setAlpha:0];
 			[cell.value2 setAlpha:0];
 			[cell.image1 setAlpha:1];

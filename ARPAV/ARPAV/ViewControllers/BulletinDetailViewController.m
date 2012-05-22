@@ -40,6 +40,7 @@
 {
     [super viewDidLoad];
 
+	// Remove bouncyness
 	for (id subview in self.webView.subviews)
 		if ([[subview class] isSubclassOfClass: [UIScrollView class]])
 			((UIScrollView *)subview).bounces = NO;
@@ -60,6 +61,7 @@
 
 - (NSString*)checkRetina:(NSString*)source
 {
+	// checks for retina displays, and appens @2x to the file name
 	NSMutableString* ret = [NSMutableString stringWithString:source];
 	if ([[UIScreen mainScreen] respondsToSelector:@selector(scale)]) {
 		if([[UIScreen mainScreen] scale] == 2) {
@@ -76,8 +78,8 @@
 {
 	self.data = [[[SettingsHelper sharedHelper] getBullettinPagesFor:_type] objectAtIndex:_page];
 
-	if ([self.data objectForKey:@"img2"] == nil) {
-		// Just on picture
+	if ([self.data objectForKey:kXMLBulletinImg2] == nil) {
+		// Just one picture
 		[self.imageView2 setAlpha:0];
 		[self.labelCaption2 setAlpha:0];		
 		
@@ -87,7 +89,7 @@
 		[self.imageView1 setImageWithURL:[NSURL URLWithString:[self checkRetina:[self.data objectForKey:@"img1"]]] 
 						placeholderImage:[UIImage imageNamed:@"placeholderMap.png"]];
 		
-		[self.labelCaption1 setText:[self.data objectForKey:@"imgCaption1"]];
+		[self.labelCaption1 setText:[self.data objectForKey:kXMLBulletinCaption1]];
 		 
 	} else {
 		[self.imageView2 setAlpha:1];
@@ -101,13 +103,13 @@
 		[self.imageView2 setImageWithURL:[NSURL URLWithString:[self checkRetina:[self.data objectForKey:@"img2"]]]
 						placeholderImage:[UIImage imageNamed:@"placeholderMap.png"]];
 		
-		[self.labelCaption1 setText:[self.data objectForKey:@"imgCaption1"]];
-		[self.labelCaption2 setText:[self.data objectForKey:@"imgCaption2"]];
+		[self.labelCaption1 setText:[self.data objectForKey:kXMLBulletinCaption1]];
+		[self.labelCaption2 setText:[self.data objectForKey:kXMLBulletinCaption2]];
 	}
 	
 
 	NSMutableString* html = [[NSMutableString alloc] initWithString:@"<html><head><link rel=\"stylesheet\" type=\"text/css\" href=\"style.css\" /></head><body>"];
-	[html appendString:[self.data objectForKey:@"text"]];
+	[html appendString:[self.data objectForKey:kXMLBulletinText]];
 	[html appendString:@"</body></html>"];
 	[html replaceOccurrencesOfString:@"\n" withString:@"" options:NSUTF8StringEncoding range:NSMakeRange(0, [html length])];
 
@@ -119,6 +121,7 @@
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView
 {
+	// gets the webview height, and stretches it to hold the full content, avoiding a scrollview inside a scrollview
 	NSString *output = [self.webView stringByEvaluatingJavaScriptFromString:@"document.body.offsetHeight;"];
 	CGRect frame = self.webView.frame;
 	frame.size.height = [output intValue] + 20;
@@ -129,6 +132,12 @@
 
 - (void)viewDidUnload
 {
+	[self setWebView:nil];
+	[self setScrollView:nil];
+	[self setImageView1:nil];
+	[self setImageView2:nil];
+	[self setLabelCaption1:nil];
+	[self setLabelCaption2:nil];
     [super viewDidUnload];
 }
 

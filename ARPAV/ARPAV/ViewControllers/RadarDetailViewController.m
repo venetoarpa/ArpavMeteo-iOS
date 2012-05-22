@@ -8,6 +8,7 @@
 
 #import "RadarDetailViewController.h"
 #import "UIImageView+WebCache.h"
+#import "XMLParser.h"
 
 @interface RadarDetailViewController ()
 
@@ -38,14 +39,16 @@
 - (void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
+	[self refreshDataWithDict:self.dict];
 }
 
 - (void)refreshDataWithDict:(NSDictionary*)dict
 {
 	self.dict = dict;
-	NSURL* url = [NSURL URLWithString:[dict objectForKey:@"img"]];
+	NSURL* url = [NSURL URLWithString:[dict objectForKey:kXMLRadarImage]];
 	[self.activityIndicator startAnimating];
 	[self.labelError setAlpha:0];
+
 	[self.imageView setImageWithURL:url 
 							success:^(UIImage* imageView) { 
 								[self.activityIndicator stopAnimating];
@@ -54,7 +57,7 @@
 								[self.activityIndicator stopAnimating];								
 								[self.labelError setAlpha:1];
 							}];
-	[self.labelTitle setText:[dict objectForKey:@"title"]];
+	[self.labelTitle setText:[dict objectForKey:kXMLRadarTitle]];
 }
 
 - (void)viewDidUnload
@@ -64,7 +67,6 @@
 	[self setLabelError:nil];
 	[self setActivityIndicator:nil];
     [super viewDidUnload];
-    // Release any retained subviews of the main view.
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

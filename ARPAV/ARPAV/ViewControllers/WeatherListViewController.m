@@ -17,18 +17,12 @@
 - (void)presentPreferencesAnimated:(BOOL)animated;
 - (void)loadScrollViewWithPage:(int)page;
 - (void)updatePageTitle;
-- (void)refreshWeather;
-- (void)cachePages;
 
 @end
 
 @implementation WeatherListViewController
 
-@synthesize scrollView = _scrollView;
-@synthesize pageControl = _pageControl;
-@synthesize viewControllers = _viewControllers;
 @synthesize labelDate = _labelDate;
-@synthesize hud = _hud;
 @synthesize labelError = _labelError;
 
 - (void)viewDidLoad
@@ -36,8 +30,6 @@
     [super viewDidLoad];
 	
 	[self setTitle:@"Meteo"];
-
-	_notifyNetworkError = NO;
 	
 	if ([[SettingsHelper sharedHelper].preferences count] == 0) {
 		[self presentPreferencesAnimated:NO];
@@ -52,17 +44,6 @@
 																			 target:self 
 																			 action:@selector(presentPreferencesAnimated:)];
 	
-	self.scrollView.pagingEnabled = YES;
-	self.scrollView.showsHorizontalScrollIndicator = NO;
-	self.scrollView.showsVerticalScrollIndicator = NO;
-	self.scrollView.scrollsToTop = NO;
-    self.scrollView.delegate = self;
-    self.scrollView.alwaysBounceHorizontal = NO;
-	self.scrollView.bounces = NO;
-	
-	self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
-	[self.hud setMode:MBProgressHUDModeIndeterminate];
-	[self.hud setLabelText:@"Aggiornamento..."];
 }
 
 - (IBAction)radarButton:(id)sender 
@@ -74,11 +55,8 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-	[super viewWillAppear:animated];
-	
-	[[SettingsHelper sharedHelper] setUpdateDelegate:self];
 	self.viewControllers = nil;
-	[self cachePages];
+	[super viewWillAppear:animated];
 }
 
 - (void)cachePages
@@ -129,40 +107,11 @@
 
 }
 
-- (void)refreshWeather
-{
-	[self.navigationController.view addSubview:self.hud];
-	[self.hud setDelegate:self];
-	[self.hud show:YES];
-	_notifyNetworkError = YES;
-	[[SettingsHelper sharedHelper] updateWeatherOnlyOnline:YES];
-}
-
-- (void)hudWasHidden:(MBProgressHUD *)hud
-{
-	[hud removeFromSuperview];
-}
-
 - (IBAction)buttonBulletin:(id)sender
 {
 	BulletinListViewController* viewController = [[BulletinListViewController alloc] initWithNibName:@"BulletinListView" bundle:nil];
 	[self setTitle:@"Meteo"];
 	[self.navigationController pushViewController:viewController animated:YES];
-}
-
-- (void)updateWeatherDidFail
-{
-	[self.hud hide:YES];
-	if (_notifyNetworkError) {
-		UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Errore"
-														message:@"Impossibile aggiornare i dati, verificare la connessione e riprovare."
-													   delegate:nil
-											  cancelButtonTitle:@"Ok"
-											  otherButtonTitles:nil];
-		[alert show];
-	}
-	
-	_notifyNetworkError = NO;
 }
 
 - (void)updateWeatherSuccess
@@ -262,44 +211,16 @@
 	[self setTitle:[[[SettingsHelper sharedHelper].preferences objectAtIndex:page] objectForKey:@"name"]]; 
 }
 
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-{
-    _pageControlUsed = NO;
-}
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
-    _pageControlUsed = NO;
-}
-
-- (IBAction)changePage:(id)sender
-{
-    int page = self.pageControl.currentPage;
-	
-    // load the visible page and the page on either side of it (to avoid flashes when the user starts scrolling)
-    [self loadScrollViewWithPage:page - 1];
-    [self loadScrollViewWithPage:page];
-    [self loadScrollViewWithPage:page + 1];
-    
-	// update the scroll view to the appropriate page
-    CGRect frame = self.scrollView.frame;
-    frame.origin.x = frame.size.width * page;
-    frame.origin.y = 0;
-    [self.scrollView scrollRectToVisible:frame animated:YES];
-    
-	// Set the boolean used when scrolls originate from the UIPageControl. See scrollViewDidScroll: above.
-    _pageControlUsed = YES;
-}
-
 - (void)viewDidUnload
 {
+	[self setLabelDate:nil];
+	[self setLabelError:nil];
     [super viewDidUnload];
 }
 
 - (void)viewWillDisappear:(BOOL)animated
 {
 	[super viewWillDisappear:animated];
-	[[SettingsHelper sharedHelper] setUpdateDelegate:nil];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

@@ -7,20 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SettingsHelper.h"
-#import "ARPAVViewController.h"
-#import "MBProgressHUD.h"
+#import "ARPAVMultiViewController.h"
 
-@interface RadarListViewController : ARPAVViewController <UpdateDelegate, UIScrollViewDelegate, MBProgressHUDDelegate>
-{
-	BOOL				_notifyNetworkError;
-	BOOL				_pageControlUsed;
-	BOOL				_isOffline;
-}
 
-@property (nonatomic, assign) IBOutlet UIScrollView*	scrollView;
-@property (nonatomic, assign) IBOutlet UIPageControl*	pageControl;
-@property (nonatomic, retain) MBProgressHUD*	hud;
-@property (nonatomic, retain) NSMutableArray*	viewControllers;
+@interface RadarListViewController : ARPAVMultiViewController 
+
 
 @end

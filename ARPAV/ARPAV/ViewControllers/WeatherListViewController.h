@@ -9,31 +9,12 @@
 #import <UIKit/UIKit.h>
 #import "SettingsHelper.h"
 #import "MBProgressHUD.h"
-#import "ARPAVViewController.h"
+#import "ARPAVMultiViewController.h"
 
-@interface WeatherListViewController : ARPAVViewController <UIScrollViewDelegate, UpdateDelegate, MBProgressHUDDelegate>
-{
-	UIScrollView*		_scrollView;
-	UIPageControl*		_pageControl;
-	UILabel*			_labelDate;
-	UILabel*			_labelError;
-	
-	NSMutableArray*		_viewControllers;
-	
-	MBProgressHUD*		_hud;
-	BOOL				_notifyNetworkError;
-	
-	BOOL				_pageControlUsed;
-	
-	BOOL				_isOffline;
-}
+@interface WeatherListViewController : ARPAVMultiViewController
 
-@property (nonatomic, retain) IBOutlet UIScrollView*		scrollView;
-@property (nonatomic, retain) IBOutlet UIPageControl*		pageControl;
-@property (nonatomic, retain) IBOutlet UILabel*				labelDate;
-@property (nonatomic, retain) IBOutlet UILabel*				labelError;
-@property (nonatomic, retain) NSMutableArray*				viewControllers;
-@property (nonatomic, retain) MBProgressHUD*				hud;
+@property (nonatomic, assign) IBOutlet UILabel*				labelDate;
+@property (nonatomic, assign) IBOutlet UILabel*				labelError;
 
 - (IBAction)openPreferences:(id)sender;
 - (IBAction)buttonBulletin:(id)sender;

@@ -8,54 +8,32 @@
 
 #import "RadarListViewController.h"
 #import "RadarDetailViewController.h"
+#import "SDImageCache.h"
 
 
 @interface RadarListViewController ()
-
-- (void)cachePages;
 
 @end
 
 @implementation RadarListViewController
 
-@synthesize scrollView = _scrollView;
-@synthesize	pageControl = _pageControl;
-@synthesize hud = _hud;
-@synthesize viewControllers = _viewControllers;
+
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
 
 	[self setTitle:@"Radar"];
-	
-	_notifyNetworkError = NO;
-	
+		
 	self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRefresh
 																						   target:self 
 																						   action:@selector(refreshWeather)];
-	
-	self.scrollView.pagingEnabled = YES;
-	self.scrollView.showsHorizontalScrollIndicator = NO;
-	self.scrollView.showsVerticalScrollIndicator = NO;
-	self.scrollView.scrollsToTop = NO;
-    self.scrollView.delegate = self;
-    self.scrollView.alwaysBounceHorizontal = NO;
-	self.scrollView.bounces = NO;
-	
-	self.hud = [[MBProgressHUD alloc] initWithView:self.navigationController.view];
-	[self.hud setMode:MBProgressHUDModeIndeterminate];
-	[self.hud setLabelText:@"Aggiornamento..."];
-	
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
-	[super viewWillAppear:animated];
-	
-	[[SettingsHelper sharedHelper] setUpdateDelegate:self];
 	self.viewControllers = nil;
-	[self cachePages];
+	[super viewWillAppear:animated];
 }
 
 - (void)cachePages
@@ -71,7 +49,7 @@
 		return;
 	} 
 	
-	numberOfPages = [[[SettingsHelper sharedHelper].weatherData objectForKey:@"radars"] count];
+	numberOfPages = [[[SettingsHelper sharedHelper].weatherData objectForKey:kXMLRadar] count];
 	
 	if (self.viewControllers == nil) {
 		NSMutableArray *controllers = [[NSMutableArray alloc] init];
@@ -97,35 +75,6 @@
     [self loadScrollViewWithPage:1];
 }
 
-- (void)refreshWeather
-{
-	[self.navigationController.view addSubview:self.hud];
-	[self.hud setDelegate:self];
-	[self.hud show:YES];
-	_notifyNetworkError = YES;
-	[[SettingsHelper sharedHelper] updateWeatherOnlyOnline:YES];
-}
-
-- (void)hudWasHidden:(MBProgressHUD *)hud
-{
-	[hud removeFromSuperview];
-}
-
-- (void)updateWeatherDidFail
-{
-	[self.hud hide:YES];
-	if (_notifyNetworkError) {
-		UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Errore"
-														message:@"Impossibile aggiornare i dati, verificare la connessione e riprovare."
-													   delegate:nil
-											  cancelButtonTitle:@"Ok"
-											  otherButtonTitles:nil];
-		[alert show];
-	}
-	
-	_notifyNetworkError = NO;
-}
-
 - (void)updateWeatherSuccess
 {	
 	if (_isOffline) {
@@ -137,10 +86,10 @@
 	for (UIViewController* controller in self.viewControllers) {
 		if ([controller isKindOfClass:[RadarDetailViewController class]]) {
 			int index = [self.viewControllers indexOfObject:controller];
-			if (index > [[[SettingsHelper sharedHelper].weatherData objectForKey:@"radars"] count]) {
+			if (index > [[[SettingsHelper sharedHelper].weatherData objectForKey:kXMLRadar] count]) {
 				return;
 			}
-			NSDictionary* dict = [[[SettingsHelper sharedHelper].weatherData objectForKey:@"radars"] objectAtIndex:index];
+			NSDictionary* dict = [[[SettingsHelper sharedHelper].weatherData objectForKey:kXMLRadar] objectAtIndex:index];
 			if (dict != nil) {
 				[(RadarDetailViewController*)controller refreshDataWithDict:dict];
 			}
@@ -150,13 +99,13 @@
 
 - (void)loadScrollViewWithPage:(int)page
 {
-	int numberOfPages =  [[[SettingsHelper sharedHelper].weatherData objectForKey:@"radars"] count];
+	int numberOfPages =  [[[SettingsHelper sharedHelper].weatherData objectForKey:kXMLRadar] count];
 	if (page < 0)
         return;
     if (page >= numberOfPages)
         return;
 	
-	NSDictionary* dict = [[[SettingsHelper sharedHelper].weatherData objectForKey:@"radars"] objectAtIndex:page];
+	NSDictionary* dict = [[[SettingsHelper sharedHelper].weatherData objectForKey:kXMLRadar] objectAtIndex:page];
 	
 	if (dict == nil)
 		return;
@@ -195,36 +144,6 @@
     [self loadScrollViewWithPage:page + 1];
 }
 
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-{
-    _pageControlUsed = NO;
-}
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
-    _pageControlUsed = NO;
-}
-
-- (IBAction)changePage:(id)sender
-{
-    int page = self.pageControl.currentPage;
-	
-    // load the visible page and the page on either side of it (to avoid flashes when the user starts scrolling)
-    [self loadScrollViewWithPage:page - 1];
-    [self loadScrollViewWithPage:page];
-    [self loadScrollViewWithPage:page + 1];
-    
-	// update the scroll view to the appropriate page
-    CGRect frame = self.scrollView.frame;
-    frame.origin.x = frame.size.width * page;
-    frame.origin.y = 0;
-    [self.scrollView scrollRectToVisible:frame animated:YES];
-    
-	// Set the boolean used when scrolls originate from the UIPageControl. See scrollViewDidScroll: above.
-    _pageControlUsed = YES;
-}
-
-
 - (void)viewDidUnload
 {
     [super viewDidUnload];
@@ -233,7 +152,6 @@
 - (void)viewWillDisappear:(BOOL)animated
 {
 	[super viewWillDisappear:animated];
-	[[SettingsHelper sharedHelper] setUpdateDelegate:nil];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

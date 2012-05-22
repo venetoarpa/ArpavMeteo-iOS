@@ -11,11 +11,10 @@
 
 @interface CityViewController : ARPAVViewController<UITableViewDelegate, UITableViewDataSource>
 {
-	UITableView*			_tableView;
 	int						_province;
 }
 
-@property (nonatomic, retain) IBOutlet	UITableView*			tableView;
+@property (nonatomic, assign) IBOutlet	UITableView*			tableView;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil andProvince:(int)province;
 

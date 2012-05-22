@@ -9,9 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface ARPAVViewController : UIViewController
-{
-	UIImageView*		_imageBanner;
-}
 
 @property (nonatomic, retain) IBOutlet UIImageView*			imageBanner;
 
